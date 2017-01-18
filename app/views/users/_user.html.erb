@@ -1,0 +1,7 @@
+            <tr>
+                <td><%= current_user?(user) ? link_to(user.name, user_path(user)) : user.name %></td>
+                <td><%= user.email %></td>
+                <td><%=  %></td>
+                <td><%=  %></td>
+                <td></td>
+            </tr>
