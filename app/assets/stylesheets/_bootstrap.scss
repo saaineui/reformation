@@ -4,8 +4,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-@import "bootstrap-sprockets";
-
 // Core variables and mixins
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
@@ -18,7 +16,6 @@
 // Core CSS
 @import "bootstrap/scaffolding";
 @import "bootstrap/type";
-
 // @import "bootstrap/code";
 @import "bootstrap/grid";
 @import "bootstrap/tables";
@@ -27,9 +24,9 @@
 
 // Components
 // @import "bootstrap/component-animations";
-@import "bootstrap/dropdowns";
+// @import "bootstrap/dropdowns";
 @import "bootstrap/button-groups";
-@import "bootstrap/input-groups";
+// @import "bootstrap/input-groups";
 @import "bootstrap/navs";
 @import "bootstrap/navbar";
 // @import "bootstrap/breadcrumbs";
@@ -42,11 +39,11 @@
 // @import "bootstrap/alerts";
 // @import "bootstrap/progress-bars";
 // @import "bootstrap/media";
-@import "bootstrap/list-group";
-// @import "bootstrap/panels";
+// @import "bootstrap/list-group";
+@import "bootstrap/panels";
 // @import "bootstrap/responsive-embed";
 // @import "bootstrap/wells";
-@import "bootstrap/close";
+// @import "bootstrap/close";
 
 // Components w/ JavaScript
 // @import "bootstrap/modals";

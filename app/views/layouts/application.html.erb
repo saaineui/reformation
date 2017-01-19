@@ -10,15 +10,23 @@
   </head>
 
   <body>
-    <div class="container">
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <h1><a href="<%= root_path %>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Reformation</a></h1>
+            </div>
+        </nav>            
+    </header>
+    <div class="container main-container">
         <div class="row">
-            <h1><a href="<%= root_path %>">Reformation</a></h1>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-              <%= yield %>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-8 col-md-offset-2">
+                        <%= yield %>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+      </div>
   </body>
 </html>
