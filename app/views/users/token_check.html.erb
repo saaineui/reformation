@@ -1,0 +1,18 @@
+<p>You&rsquo;re almost signed up - just one more thing. Please confirm your token below:</p>
+<%= form_for(:session, url: login_path) do |f| %>
+<%= render 'shared/error_messages' %>
+    
+    <%= f.hidden_field :email, value: @user.email %>
+
+    <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :token_confirmation %>
+        <%= f.text_field :token_confirmation, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Confirm", class: "btn btn-default" %>
+<% end %>

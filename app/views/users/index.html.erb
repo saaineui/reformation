@@ -4,9 +4,11 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
+            <% if current_user.admin? %>
             <th>Token</th>
             <th>Token Confirmation</th>
             <th>Actions</th>
+            <% end %>
         </tr>
     </thead>
     <tbody>

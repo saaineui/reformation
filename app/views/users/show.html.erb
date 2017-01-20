@@ -1,6 +1,6 @@
-<h2><%= @user.name %>'s Profile</h2>
+<h2><%= @user.name %>&rsquo;s Profile</h2>
 <table class="table">
-    <body>
+    <tbody>
         <tr>
             <th>Name:</th>
             <td><%= @user.name %></td>
@@ -10,8 +10,21 @@
             <td><%= @user.email %></td>
         </tr>
         <tr>
-            <th>:</th>
-            <td><%=  %></td>
+            <th>Token:</th>
+            <td><%= @user.token %></td>
         </tr>
-    </body>
+        <tr>
+            <th>Forms:</th>
+            <td><%= @user.web_forms.map(&:name).join("<br />").html_safe %></td>
+        </tr>
+    </tbody>
 </table>
+    <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+            <%= link_to "Edit", edit_user_path(current_user), class: "btn btn-default navbar-btn" %>
+        </div>
+        <div class="btn-group" role="group">
+            <%= link_to "New Form", new_web_form_path(user_id: current_user), class: "btn btn-default navbar-btn" %>
+        </div>
+    </div>
+ 

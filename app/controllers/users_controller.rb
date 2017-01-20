@@ -14,14 +14,17 @@ class UsersController < ApplicationController
   def create
       @user = User.new(user_params)
       if @user.save
-          log_in @user
           flash[:notice] = "Your account has been created. Welcome to Reformation."
-          redirect_to @user
+          redirect_to token_check_path(@user)
       else
           render 'new'
       end
   end
   
+  def token_check
+      @user = User.find(params[:id])
+  end
+
   def show
       @user = User.find(params[:id])
   end

@@ -1,0 +1,11 @@
+<h2>New Form</h2>
+<%= form_for(@web_form) do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+
+    <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Create Form", class: "btn btn-default" %>
+<% end %>

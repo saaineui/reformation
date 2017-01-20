@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
+  get 'users/:id/token_check' => 'users#token_check', as: 'token_check'
+
+  resources :web_forms, only: [:new, :create, :show, :edit, :update, :destroy]
+
 end
