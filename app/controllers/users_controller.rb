@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
           log_in @user
-          flash[:success] = "Your account has been created. Welcome to Reformation."
+          flash[:notice] = "Your account has been created. Welcome to Reformation."
           redirect_to @user
       else
           render 'new'
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       if @user.update_attributes(user_params)
           redirect_to @user
-          flash[:success] = "Your changes have been saved."
+          flash[:notice] = "Your changes have been saved."
       else
         render 'edit'
       end
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   def destroy
       @user = User.find(params[:id])
       if @user.destroy
-          flash[:success] = "#{@user.name} was deleted."
+          flash[:notice] = "#{@user.name} was deleted."
       else
           flash[:danger] = "#{@user.name} could not be deleted."
       end

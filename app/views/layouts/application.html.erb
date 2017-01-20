@@ -13,11 +13,26 @@
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
-                <h1><a href="<%= root_path %>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Reformation</a></h1>
+                <div class="col-md-6">
+                    <h1><a href="<%= root_path %>"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Reformation</a></h1>
+                </div>
+                <div class="col-md-6" style="text-align: right">
+                    <%- if logged_in? %>
+                        <%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-default navbar-btn" %>
+                    <%- end %>
+                </div>
             </div>
         </nav>            
     </header>
     <div class="container main-container">
+        <div class="row">
+            <% if flash[:notice] %>
+            <div class="alert alert-info"><%= flash[:notice] %></div>
+            <% end %>
+            <% if flash[:danger] %>
+            <div class="alert alert-warning"><%= flash[:danger] %></div>
+            <% end %>
+        </div>
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">

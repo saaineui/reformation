@@ -1,7 +1,5 @@
 <h2>Sign Up for Reformation</h2>
 <%= form_for(@user) do |f| %>
-<%= render 'shared/error_messages' %>
-
     <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control" %>
