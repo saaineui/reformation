@@ -1,5 +1,9 @@
 <%= form_for(@user) do |f| %>
-<%= render 'shared/error_messages' %>
+<% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |msg| %>
+        <div class="alert alert-warning"><%= msg %></div>
+    <% end %>
+<% end %>
 
     <div class="form-group">
         <%= f.label :name %>

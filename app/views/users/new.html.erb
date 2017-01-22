@@ -1,5 +1,11 @@
 <h2>Sign Up for Reformation</h2>
 <%= form_for(@user) do |f| %>
+<% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |msg| %>
+        <div class="alert alert-warning"><%= msg %></div>
+    <% end %>
+<% end %>
+
     <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control" %>

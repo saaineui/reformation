@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show]
   before_action :correct_user,   only: [:edit, :update, :show]
   before_action :admin_user,     only: [:index, :destroy]
+  before_action :already_logged_in,     only: [:new]
   
   def index
       @users = User.all
@@ -79,6 +80,14 @@ class UsersController < ApplicationController
     # Confirms an admin user.
     def admin_user
         redirect_to(root_url) unless current_user.admin?
+    end
+
+    # Confirms a logged-in user.
+    def already_logged_in
+        if logged_in?
+           flash[:danger] = 'You are already logged in.'
+           redirect_to current_user
+        end
     end
 
 end

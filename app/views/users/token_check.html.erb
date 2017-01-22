@@ -1,6 +1,10 @@
 <p>You&rsquo;re almost signed up - just one more thing. Please confirm your token below:</p>
 <%= form_for(:session, url: login_path) do |f| %>
-<%= render 'shared/error_messages' %>
+<% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |msg| %>
+        <div class="alert alert-warning"><%= msg %></div>
+    <% end %>
+<% end %>
     
     <%= f.hidden_field :email, value: @user.email %>
 
