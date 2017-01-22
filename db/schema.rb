@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120063240) do
+ActiveRecord::Schema.define(version: 20170122000541) do
+
+  create_table "submissions", force: :cascade do |t|
+    t.string   "source"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "web_form_id"
+    t.index ["web_form_id"], name: "index_submissions_on_web_form_id"
+  end
+
+  create_table "submissions_entries", force: :cascade do |t|
+    t.integer "web_form_field_id"
+    t.integer "submission_id"
+    t.string  "value"
+    t.index ["submission_id"], name: "index_submissions_entries_on_submission_id"
+    t.index ["web_form_field_id"], name: "index_submissions_entries_on_web_form_field_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -28,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170120063240) do
   create_table "web_form_fields", force: :cascade do |t|
     t.integer "web_form_id"
     t.string  "name"
-    t.string  "value"
+    t.boolean "required",    default: true
     t.index ["web_form_id"], name: "index_web_form_fields_on_web_form_id"
   end
 
