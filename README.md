@@ -9,7 +9,6 @@ This is a simple web forms solution that I created as an alternative to Google F
 
 ## Database creation
 
-    bundle exec rake db:create
     bundle exec rake db:migrate
 
 ## Tests

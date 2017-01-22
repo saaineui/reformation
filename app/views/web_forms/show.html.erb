@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Field</th>
             <th>Required?</th>
         </tr>
@@ -15,6 +16,7 @@
     <tbody>
         <%- @web_form.web_form_fields.each do |field| %>
         <tr>
+            <td><%= field.id %></td>
             <td><%= field.name %></td>
             <td><%= field.required? ? "Required" : "No" %></td>
         </tr>

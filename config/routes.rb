@@ -15,4 +15,8 @@ Rails.application.routes.draw do
     
   get 'web_forms/:id/submissions' => 'web_forms#submissions', as: 'submissions'
 
+  namespace :api do
+    get "submit/:id" => "submissions_entries#create"
+  end
+    
 end
