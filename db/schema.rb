@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122000541) do
+ActiveRecord::Schema.define(version: 20170122031914) do
 
   create_table "submissions", force: :cascade do |t|
     t.string   "source"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170122000541) do
   create_table "web_form_fields", force: :cascade do |t|
     t.integer "web_form_id"
     t.string  "name"
-    t.boolean "required",    default: true
+    t.boolean "required",    default: false
     t.index ["web_form_id"], name: "index_web_form_fields_on_web_form_id"
   end
 

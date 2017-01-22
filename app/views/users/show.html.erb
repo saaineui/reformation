@@ -15,16 +15,20 @@
         </tr>
         <tr>
             <th>Forms:</th>
-            <td><%= @user.web_forms.map(&:name).join("<br />").html_safe %></td>
+            <td>
+                <div class="btn-group-vertical" role="group">
+                    <%= @user.web_forms.map{ |form| link_to(form.name, form, class: "btn btn-default") }.join().html_safe %>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>
     <div class="btn-group btn-group-justified" role="group">
         <div class="btn-group" role="group">
-            <%= link_to "Edit", edit_user_path(current_user), class: "btn btn-default navbar-btn" %>
+            <%= link_to "Edit", edit_user_path(current_user), class: "btn btn-default" %>
         </div>
         <div class="btn-group" role="group">
-            <%= link_to "New Form", new_web_form_path(user_id: current_user), class: "btn btn-default navbar-btn" %>
+            <%= link_to "New Form", new_web_form_path(user_id: current_user), class: "btn btn-primary" %>
         </div>
     </div>
  

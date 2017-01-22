@@ -1,10 +1,37 @@
+<h2>Edit Form</h2>
 <%= form_for(@web_form) do |f| %>
-<%= render 'shared/error_messages' %>
+<% if @web_form.errors.any? %>
+    <% @web_form.errors.full_messages.each do |msg| %>
+        <div class="alert alert-warning"><%= msg %></div>
+    <% end %>
+<% end %>
+
+    <%= f.hidden_field :user_id %>
 
     <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control" %>
     </div>
 
+    <h3>Form Fields:</h3>
+    <%= f.fields_for :web_form_fields do |web_form_fields_form| %>
+        <div class="form-inline submit-wrap">
+          <div class="form-group">
+              <%= web_form_fields_form.label :name %>
+              <%= web_form_fields_form.text_field :name, class: "form-control" %>
+          </div>
+ 
+          <div class="form-group checkbox">
+              <label>Required? <%= web_form_fields_form.check_box :required %></label>
+          </div>
+
+          <div class="form-group checkbox">
+              <label>Delete? <%= web_form_fields_form.check_box :_destroy %></label>
+          </div>
+        </div>
+   <% end %>
+
+    <div class="clearfix submit-wrap">
     <%= f.submit "Edit Form", class: "btn btn-default" %>
+    </div>
 <% end %>

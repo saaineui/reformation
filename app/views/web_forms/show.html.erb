@@ -1,4 +1,26 @@
 <h2><%= @web_form.name %></h2>
+<h3><%= @web_form.user.name if @web_form.user_id %></h3>
 <table class="table">
-
+    <thead>
+        <tr>
+            <th>Field</th>
+            <th>Required?</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%- @web_form.web_form_fields.each do |field| %>
+        <tr>
+            <td><%= field.name %></td>
+            <td><%= field.required? ? "Required" : "No" %></td>
+        </tr>
+        <%- end %>
+    </tbody>
 </table>
+    <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+            <%= link_to "Edit", edit_web_form_path(@web_form), class: "btn btn-default" %>
+        </div>
+        <div class="btn-group" role="group">
+            <%= link_to "Delete", web_form_path(@web_form), method: :delete, data: { confirm: "Are you sure you want to delete #{@web_form.name}?" }, class: "btn btn-warning" %>
+        </div>
+    </div>
