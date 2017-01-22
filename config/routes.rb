@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   get 'users/:id/token_check' => 'users#token_check', as: 'token_check'
 
   resources :web_forms, only: [:new, :create, :show, :edit, :update, :destroy]
+    
+  get 'web_forms/:id/submissions' => 'web_forms#submissions', as: 'submissions'
 
 end

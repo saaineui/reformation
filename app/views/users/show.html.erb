@@ -18,6 +18,7 @@
             <td>
                 <div class="btn-group-vertical" role="group">
                     <%= @user.web_forms.map{ |form| link_to(form.name, form, class: "btn btn-default") }.join().html_safe %>
+                    <%= link_to "New Form", new_web_form_path, class: "btn btn-primary" %>
                 </div>
             </td>
         </tr>

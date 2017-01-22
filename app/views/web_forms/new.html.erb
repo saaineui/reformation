@@ -6,31 +6,12 @@
     <% end %>
 <% end %>
     
-    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
 
     <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: "form-control" %>
     </div>
-
-    <h3>Form Fields:</h3>
-    <%= f.fields_for :web_form_fields do |web_form_fields_form| %>
-        <%= f.hidden_field :web_form_id, value: @web_form.id %>
-        <div class="form-inline submit-wrap">
-          <div class="form-group">
-              <%= web_form_fields_form.label :name %>
-              <%= web_form_fields_form.text_field :name, class: "form-control" %>
-          </div>
- 
-          <div class="form-group checkbox">
-              <label>Required? <%= web_form_fields_form.check_box :required %></label>
-          </div>
-
-          <div class="form-group checkbox">
-              <label>Delete? <%= web_form_fields_form.check_box :_destroy %></label>
-          </div>
-        </div>
-    <% end %>
 
     <div class="clearfix submit-wrap">
     <%= f.submit "Create Form", class: "btn btn-primary" %>

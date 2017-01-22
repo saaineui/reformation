@@ -1,9 +1,9 @@
 class WebFormsController < ApplicationController
   before_action :logged_in_user
-  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy, :submissions]
   
   def new
-      @web_form = WebForm.new(user: current_user)
+      @web_form = WebForm.new()
   end
   
   def create
@@ -47,6 +47,10 @@ class WebFormsController < ApplicationController
       redirect_to current_user
   end
 
+  def submissions
+      @web_form = WebForm.find(params[:id])
+      @col_class = ""
+  end
 
   private
     def web_form_params
@@ -66,8 +70,8 @@ class WebFormsController < ApplicationController
 
     # Confirms the correct user.
     def correct_user
-        @user_id = WebForm.find(params[:id]).user_id
-#        redirect_to(root_url) unless current_user?(@user_id)
+        @user = User.find(WebForm.find(params[:id]).user_id)
+        redirect_to(root_url) unless current_user?(@user)
     end
 
 end
