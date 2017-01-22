@@ -6,6 +6,7 @@ module Api
         respond_to? :json
         
         def create
+          if params[:source]
             @submission = Submission.new(web_form_id: params[:id], source: params[:source].to_s)
             entries = []
             
@@ -19,8 +20,9 @@ module Api
                 @output = @submission.submissions_entries.count
 
             end
+          end
             
-            render json: @output
+          render json: @output
         end
         
       private

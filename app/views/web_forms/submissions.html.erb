@@ -7,14 +7,16 @@
             <%- @web_form.web_form_fields.each do |field| %>
             <th><%= field.name %></th>
             <%- end %>
+            <th>Date Created</th>
         </tr>
     </thead>
     <tbody>
         <%- @web_form.submissions.each do |submission| %>
         <tr>
-            <%- submission.submissions_entries.each do |entry| %>
-            <th><%= entry.value %></th>
+            <%- @web_form.web_form_fields.each do |field| %>
+            <td><%= SubmissionsEntry.where(web_form_field_id: field.id, submission_id: submission.id).count > 0 ? SubmissionsEntry.where(web_form_field_id: field.id, submission_id: submission.id).first.value : "-" %></td>
             <%- end %>
+            <td><%= submission.created_at.strftime("%B %d, %Y (%a)") %></td>
         </tr>
         <%- end %>
     </tbody>
