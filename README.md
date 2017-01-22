@@ -1,24 +1,17 @@
-# README
+# Reformation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple web forms solution that I created as an alternative to Google Forms for my website.
 
-Things you may want to cover:
+## Dependencies
 
-* Ruby version
+* Ruby 2.4.0
+* Rails 5.0.1
 
-* System dependencies
+## Database creation
 
-* Configuration
+    bundle exec rake db:create
+    bundle exec rake db:migrate
 
-* Database creation
+## Tests
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    bundle exec rake test
