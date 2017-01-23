@@ -1,0 +1,24 @@
+<div class="page-header">
+        <h2><%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-tasks")+" "+@web_form.name, @web_form) %></h2>
+        <h2><%= content_tag(:span, "", class: "glyphicon glyphicon-console") %> Embed Code</h2>
+</div>
+<pre>
+    <%= "<form id='reformation-form' action='#{api_url(@web_form.id)}'>" %>
+        <%= "<input type='hidden' name='token' value='#{current_user.token}' />" %>
+        <%= "<input type='hidden' name='source' value='stephsun.com' />" %>
+        
+        <%- @web_form.web_form_fields.each do |field| %>
+        <%= "<input type='text' name='web_form_field_#{field.id.to_s}' placeholder='#{field.name}' #{"required" if field.required?} />" %>
+        <%- end %>
+        
+        <%= "<input type='submit' value='Send' />" %>
+    <%= "</form>" %>
+</pre>
+    <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group" role="group">
+            <%= link_to "Edit", edit_web_form_path(@web_form), class: "btn btn-default" %>
+        </div>
+        <div class="btn-group" role="group">
+            <%= link_to "Delete", web_form_path(@web_form), method: :delete, data: { confirm: "Are you sure you want to delete #{@web_form.name}?" }, class: "btn btn-warning" %>
+        </div>
+    </div>

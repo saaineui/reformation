@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :web_forms, only: [:new, :create, :show, :edit, :update, :destroy]
     
   get 'web_forms/:id/submissions' => 'web_forms#submissions', as: 'submissions'
+  get 'web_forms/:id/embed_code' => 'web_forms#embed_code', as: 'form_embed'
 
   namespace :api do
     get "submit/:id" => "submissions_entries#create"

@@ -1,4 +1,6 @@
-<h2>Sign Up for Reformation</h2>
+<div class="page-header">
+    <h2>Sign Up for Reformation</h2>
+</div>
 <%= form_for(@user) do |f| %>
 <% if @user.errors.any? %>
     <% @user.errors.full_messages.each do |msg| %>

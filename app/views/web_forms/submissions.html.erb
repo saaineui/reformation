@@ -1,6 +1,7 @@
-<h2><%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-tasks")+" "+@web_form.name, @web_form) %></h2>
-<h3><span class="glyphicon glyphicon-user"></span> <%= @web_form.user.name if @web_form.user_id %></h3>
-<h3 style="text-align: center"><span class="glyphicon glyphicon-inbox"></span> Submissions (<%= @web_form.submissions.count %>)</h3>
+<div class="page-header" style="text-align: right">
+        <h2><%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-tasks")+" "+@web_form.name, @web_form) %></h2>
+        <h3><span class="glyphicon glyphicon-inbox"></span> Submissions (<%= @web_form.submissions.count %>)</h3>
+</div>
 <table class="table">
     <thead>
         <tr>

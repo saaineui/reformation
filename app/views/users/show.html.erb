@@ -1,5 +1,12 @@
-<h2><%= @user.name %>&rsquo;s Profile</h2>
+<div class="page-header">
+    <h2><%= content_tag(:span, "", class: "glyphicon glyphicon-user") %> <%= @user.name %></h2>
+</div>
 <table class="table">
+    <thead>
+        <tr>
+            <th colspan=2>Profile Details</th>
+        </tr>
+    </thead>
     <tbody>
         <tr>
             <th>Name:</th>

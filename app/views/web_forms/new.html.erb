@@ -1,4 +1,6 @@
-<h2>New Form</h2>
+<div class="page-header">
+    <h2>New Form</h2>
+</div>
 <%= form_for(@web_form) do |f| %>
 <% if @web_form.errors.any? %>
     <% @web_form.errors.full_messages.each do |msg| %>

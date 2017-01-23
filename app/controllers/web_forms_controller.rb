@@ -52,6 +52,10 @@ class WebFormsController < ApplicationController
       @col_class = ""
   end
 
+  def embed_code
+      @web_form = WebForm.find(params[:id])
+  end
+
   private
     def web_form_params
         params.require(:web_form).permit(:user_id, :name, web_form_fields_attributes: [:id, :name, :required, :web_form_id, :_destroy])

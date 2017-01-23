@@ -3,4 +3,6 @@ class WebFormField < ActiveRecord::Base
     has_many :submissions_entries
 
     validates :name, presence: true
+    
+    scope :required, -> { where(required: true) }
 end

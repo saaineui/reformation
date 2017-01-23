@@ -1,4 +1,7 @@
-<h2>Edit Form</h2>
+<div class="page-header">
+    <h2><%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-tasks")+" "+@web_form.name, @web_form) %></h2>
+    <h2>Edit Form</h2>
+</div>
 <%= form_for(@web_form) do |f| %>
 <% if @web_form.errors.any? %>
     <% @web_form.errors.full_messages.each do |msg| %>
@@ -30,6 +33,6 @@
    <% end %>
 
     <div class="clearfix submit-wrap">
-    <%= f.submit "Edit Form", class: "btn btn-default" %>
+    <%= f.submit "Update", class: "btn btn-default" %>
     </div>
 <% end %>
