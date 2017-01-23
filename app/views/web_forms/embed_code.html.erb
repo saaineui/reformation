@@ -11,7 +11,7 @@
         <%= "<input type='text' name='web_form_field_#{field.id.to_s}' placeholder='#{field.name}' #{"required" if field.required?} />" %>
         <%- end %>
         
-        <%= "<input type='submit' value='Send' id='reformation-submit-btn' />" %>
+        <%= "<button id='reformation-submit-btn'>Send</button>" %>
     <%= "</form>" %>
 </pre>
     <div class="btn-group btn-group-justified" role="group">
