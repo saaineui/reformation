@@ -11,7 +11,7 @@ module Api
             
           @web_form = WebForm.find(params[:id])
           @source = params[:source].to_s.gsub(/\s/,"")
-          missing_required = @web_form.web_form_fields.required.select { |field| params[id_to_form_field_name(field.id)].to_s.empty? }
+          missing_required = @web_form.web_form_fields.required.select { |field| params[id_to_form_field_name(field.id)].to_s.strip.empty? }
             
           if @source.empty? 
               @code = 404
