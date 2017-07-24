@@ -1,5 +1,7 @@
 # Reformation
 
+<img src="https://travis-ci.org/saaineui/reformation.svg?branch=master" />
+
 This is a simple web forms solution that I created as an alternative to Google Forms for my website.
 
 ## Dependencies
