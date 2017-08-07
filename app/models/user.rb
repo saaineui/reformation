@@ -1,33 +1,33 @@
 class User < ActiveRecord::Base
-    attr_accessor :remember_token
+  attr_accessor :remember_token
 
-    before_save { self.email = email.downcase }
-    validates :name,  presence: true, length: { maximum: 50 }
-    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    validates :email, presence: true, length: { maximum: 50 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-    
-    has_secure_password
-    has_secure_token
-    
-    has_many :web_forms
-    
-    validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
+  before_save { self.email = email.downcase }
+  validates :name,  presence: true, length: { maximum: 50 }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, length: { maximum: 50 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
-    # Returns the hash digest of the given string.
-    def User.digest(string)
-        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-        BCrypt::Engine.cost
-        BCrypt::Password.create(string, cost: cost)
-    end
+  has_secure_password
+  has_secure_token
 
-    # Returns a random token.
-    def User.new_token
-        SecureRandom.urlsafe_base64
-    end
+  has_many :web_forms
 
-    # Remembers a user in the database for use in persistent sessions.
-    def remember
-        self.remember_token = User.new_token
-        update_attribute(:remember_digest, User.digest(remember_token))
-    end
+  validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
+
+  # Returns the hash digest of the given string.
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+    BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # Returns a random token.
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # Remembers a user in the database for use in persistent sessions.
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
 end
