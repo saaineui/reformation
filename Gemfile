@@ -16,6 +16,7 @@ gem 'bcrypt', '~> 3.1.11'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5'
 end
 

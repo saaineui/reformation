@@ -7,7 +7,7 @@ This is a simple web forms solution that I created as an alternative to Google F
 ## Dependencies
 
 * Ruby 2.4.0
-* Rails 5.0.1
+* Rails 5.1.2
 
 ## Database creation
 
@@ -15,4 +15,4 @@ This is a simple web forms solution that I created as an alternative to Google F
 
 ## Tests
 
-    bundle exec rake test
+    bundle exec rspec
