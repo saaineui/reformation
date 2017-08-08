@@ -13,9 +13,10 @@ class SessionsController < ApplicationController
 
       if user.token == user.token_confirmation
         log_in user
-        redirect_back_or user
+        redirect_to user
       else
-        redirect_to token_check_path(user)
+        flash[:notice] = "Welcome #{user.name} (#{user.email})."
+        redirect_to token_check_path(user, email: user.email)
       end
     else
      flash.now[:danger] = 'Invalid email/password combination'
