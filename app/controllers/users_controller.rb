@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show]
-  before_action :find_user_or_redirect, only: [:token_check, :show, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update, :show]
-  before_action :admin_user,     only: [:index, :destroy]
-  before_action :already_logged_in,     only: [:new, :create]
+  skip_before_action :require_login, only: %i[new create token_check]
+  skip_before_action :require_admin, except: %i[index destroy]
+  before_action :find_user_or_redirect, only: %i[token_check show edit update destroy]
+  before_action :require_owner, only: %i[edit update show]
+  before_action :already_logged_in, only: %i[new create]
   
   def index
     @users = User.all
@@ -57,19 +57,20 @@ class UsersController < ApplicationController
   end
 
   private
+  
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
-  # Before filters
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
+  
+  def token_confirmed
+    @user.token.eql?(@user.token_confirmation)
   end
-
+  
+  def invalid_email
+    !@user.email.eql?(@email)
+  end
+  
+  # before filters
   def find_user_or_redirect
     if User.exists?(params[:id])
       @user = User.find(params[:id])
@@ -79,12 +80,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def correct_user
+  def require_owner
     redirect_to(root_url) unless current_user?(@user)
-  end
-
-  def admin_user
-    redirect_to(root_url) unless current_user.admin?
   end
 
   def already_logged_in
@@ -92,13 +89,5 @@ class UsersController < ApplicationController
       flash[:danger] = 'You are already logged in.'
       redirect_to current_user
     end
-  end
-  
-  def token_confirmed
-    @user.token.eql?(@user.token_confirmation)
-  end
-  
-  def invalid_email
-    !@user.email.eql?(@email)
   end
 end

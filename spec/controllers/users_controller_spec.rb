@@ -52,7 +52,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'GET #create' do
+  describe 'POST #create' do
     let(:create_params) { { user: { name: NEW_USER_NAME, email: NEW_USER_EMAIL, password: PASSWORD } } } 
     
     context 'when logged out' do
@@ -65,7 +65,7 @@ RSpec.describe UsersController, type: :controller do
       end
       
       context 'with incomplete data' do
-        it 'responds successfully with new template' do
+        it 'renders new template with errors' do
           post :create, params: { user: { name: NEW_USER_NAME, email: NEW_USER_EMAIL, password: '' } }
           expect(response).to be_success
           expect(response).to render_template('new')
@@ -171,7 +171,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'GET #update' do
+  describe 'PATCH #update' do
     let(:email) { user.email }
     let(:update_params) { { id: user.id, user: { name: user.name, email: NEW_USER_EMAIL } } }
 
@@ -218,31 +218,27 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'when logged out' do
-      it 'redirects to login' do
+      it 'redirects to login without deleting user' do
         delete :destroy, params: { id: user.id }
         expect(response).to redirect_to(login_path)
+        expect(User.find(user.id)).to eq(user)
       end
     end
 
     context 'when logged in as regular user' do
       it 'redirects to login without deleting' do
-        user_count = User.all.count
-
         delete :destroy, params: { id: user.id }
         expect(response).to redirect_to(login_path)
-        expect(User.all.count).to eq(user_count)
+        expect(User.find(user.id)).to eq(user)
       end
     end
 
     context 'when logged in as admin' do
       it 'deletes resource and redirects to users index' do
         sign_in(admin_user)
-
-        user_count = User.all.count
-
         delete :destroy, params: { id: user.id }
         expect(response).to redirect_to(users_path)
-        expect(User.all.count).to eq(user_count - 1)
+        expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
       
       context 'and resource is not found' do

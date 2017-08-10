@@ -1,5 +1,3 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 admin:
     name: Mr. Admin
     email: admin@example.com
@@ -13,3 +11,5 @@ normal:
     email: normal@example.gov
     password_digest: <%= User.digest('password') %>
     token: G4JsokU2slUr7SkK93nVMg
+    token_confirmation: nil
+    

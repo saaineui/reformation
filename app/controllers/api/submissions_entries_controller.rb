@@ -1,5 +1,7 @@
 module Api
   class SubmissionsEntriesController < ApplicationController
+    skip_before_action :require_login
+    skip_before_action :require_admin
     before_action :restrict_access
     after_action :cors_set_access_control_headers
     respond_to? :json

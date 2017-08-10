@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  before_action :logged_in_user, only: [:new]
+  skip_before_action :require_login, only: %i[new create]
+  skip_before_action :require_admin
 
   def new; end
 
@@ -27,15 +28,5 @@ class SessionsController < ApplicationController
   def destroy
     log_out
     redirect_to root_url
-  end
-
-  private
-
-  # Before filters
-  def logged_in_user
-    if logged_in?
-       flash[:danger] = 'You are already logged in.'
-       redirect_to current_user
-    end
   end
 end

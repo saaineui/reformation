@@ -1,0 +1,16 @@
+to_hire_name:
+  web_form: to_hire
+  name: Name
+  required: false
+  
+to_hire_email:
+  id: 2
+  web_form: to_hire
+  name: Email
+  required: true
+
+contact_name:
+  web_form: contact
+  name: Your Name
+  required: true
+  
