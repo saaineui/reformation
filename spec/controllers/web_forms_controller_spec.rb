@@ -167,7 +167,7 @@ RSpec.describe WebFormsController, type: :controller do
         sign_in(user)
         delete :destroy, params: { id: hire_form.id }
         expect(response).to redirect_to(user_path(user))
-        expect{ WebForm.find(hire_form.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { WebForm.find(hire_form.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       context 'and resource is not owned' do

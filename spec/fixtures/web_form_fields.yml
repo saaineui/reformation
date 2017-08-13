@@ -4,7 +4,6 @@ to_hire_name:
   required: false
   
 to_hire_email:
-  id: 2
   web_form: to_hire
   name: Email
   required: true

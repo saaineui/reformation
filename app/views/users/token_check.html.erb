@@ -1,4 +1,4 @@
-<p>You&rsquo;re almost signed up - just one more thing. Please confirm your token below:</p>
+<p>You&rsquo;re almost signed up - just one more thing. Please obtain your token from the app owner and confirm it below:</p>
 <%= form_for(:session, url: login_path) do |f| %>
 <% if @user.errors.any? %>
     <% @user.errors.full_messages.each do |msg| %>
@@ -6,7 +6,10 @@
     <% end %>
 <% end %>
     
-    <%= f.hidden_field :email, value: @email %>
+    <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, value: @user.email, class: "form-control" %>
+    </div>
 
     <div class="form-group">
         <%= f.label :password %>
@@ -20,3 +23,4 @@
 
     <%= f.submit "Confirm", class: "btn btn-default" %>
 <% end %>
+<p style="margin-top: 1em;">Bookmark this page, or login from the homepage with your account email and password, to return to this step at any time.</p>

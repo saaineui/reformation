@@ -1,8 +1,8 @@
-class WebFormField < ActiveRecord::Base
+class WebFormField < ApplicationRecord
+  validates :name, presence: true
+
   belongs_to :web_form
   has_many :submissions_entries
-
-  validates :name, presence: true
 
   scope :required, -> { where(required: true) }
 end

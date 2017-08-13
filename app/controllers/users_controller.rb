@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   skip_before_action :require_admin, except: %i[index destroy]
   before_action :find_user_or_redirect, only: %i[token_check show edit update destroy]
   before_action :require_owner, only: %i[edit update show]
-  before_action :already_logged_in, only: %i[new create]
+  before_action :redirect_if_logged_in, only: %i[new create]
   
   def index
     @users = User.all
@@ -17,31 +17,28 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "Your account has been created. Welcome #{@user.name} (#{@user.email})."
-      redirect_to token_check_path(@user, email: @user.email)
+      redirect_to token_check_path(@user, nickname: @user.nickname)
     else
       render 'new'
     end
   end
   
   def token_check
-    @email = params[:email]
-    if token_confirmed || invalid_email
+    if @user.token_confirmed? || invalid_nickname
       redirect_to root_url 
     else
       render 'token_check'
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update_attributes(user_params)
       redirect_to @user
-      flash[:notice] = "Your changes have been saved."
+      flash[:notice] = 'Your changes have been saved.'
     else
       render 'edit'
     end
@@ -62,12 +59,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
-  def token_confirmed
-    @user.token.eql?(@user.token_confirmation)
-  end
-  
-  def invalid_email
-    !@user.email.eql?(@email)
+  def invalid_nickname
+    !@user.nickname.eql?(params[:nickname])
   end
   
   # before filters
@@ -84,10 +77,9 @@ class UsersController < ApplicationController
     redirect_to(root_url) unless current_user?(@user)
   end
 
-  def already_logged_in
-    if logged_in?
-      flash[:danger] = 'You are already logged in.'
-      redirect_to current_user
-    end
+  def redirect_if_logged_in
+    return false unless logged_in?
+    flash[:danger] = 'You are already signed up.'
+    redirect_to current_user
   end
 end

@@ -57,10 +57,10 @@ RSpec.describe UsersController, type: :controller do
     
     context 'when logged out' do
       context 'with valid data' do
-        it 'responds successfully' do
+        it 'creates user and redirects to profile' do
           post :create, params: create_params
           new_user = User.find_by_name(NEW_USER_NAME)
-          expect(response).to redirect_to(token_check_path(new_user, email: new_user.email))
+          expect(response).to redirect_to(token_check_path(new_user, nickname: new_user.nickname))
         end
       end
       
@@ -86,26 +86,26 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET #token_check' do
     context 'when token has been confirmed' do
       it 'redirects to root' do
-        get :token_check, params: { id: admin_user.id }
+        get :token_check, params: { id: admin_user.id, nickname: admin_user.nickname }
         expect(response).to redirect_to(root_path)
       end
     end
 
     context 'when token has not been confirmed' do
-      context 'and valid email is provided' do
+      context 'and valid nickname is provided' do
         it 'responds successfully with token_check template' do
-          get :token_check, params: { id: user.id, email: user.email }
+          get :token_check, params: { id: user.id, nickname: user.nickname }
           expect(response).to be_success 
           expect(response).to render_template('token_check')
         end
       end
 
-      context 'and valid email is not provided' do
+      context 'and valid nickname is not provided' do
         it 'redirects to root' do
-          get :token_check, params: { id: user.id, email: '' }
+          get :token_check, params: { id: user.id, nickname: '' }
           expect(response).to redirect_to(root_path) 
           
-          get :token_check, params: { id: user.id, email: NEW_USER_EMAIL }
+          get :token_check, params: { id: user.id, nickname: admin_user.nickname }
           expect(response).to redirect_to(root_path) 
         end
       end
@@ -113,7 +113,7 @@ RSpec.describe UsersController, type: :controller do
 
     context 'when resource is not found' do
       it 'redirects to root' do
-        get :token_check, params: { id: -1, email: NEW_USER_EMAIL }
+        get :token_check, params: { id: -1, nickname: user.nickname }
         expect(response).to redirect_to(root_path) 
       end
     end
@@ -238,7 +238,7 @@ RSpec.describe UsersController, type: :controller do
         sign_in(admin_user)
         delete :destroy, params: { id: user.id }
         expect(response).to redirect_to(users_path)
-        expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
       
       context 'and resource is not found' do

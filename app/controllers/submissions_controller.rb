@@ -4,10 +4,6 @@ class SubmissionsController < ApplicationController
   before_action :require_owner
     
   def destroy
-    @submission.submissions_entries.each do |entry|
-      entry.delete
-    end
-
     if @submission.destroy
       flash[:notice] = "1 #{@submission.web_form.name} submission was deleted."
     else
@@ -23,13 +19,14 @@ class SubmissionsController < ApplicationController
     if Submission.exists?(params[:id])
       @submission = Submission.find(params[:id])
     else
+      flash[:danger] = 'That submission does not exist.'
       redirect_to current_user
     end
   end
 
   def require_owner
     return false if current_user?(@submission.user)
-    flash[:danger] = "You do not have permission to do that."
-    redirect_to(current_user) 
+    flash[:danger] = 'You do not have permission to do that.'
+    redirect_to current_user
   end
 end
