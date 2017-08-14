@@ -1,0 +1,15 @@
+to_hire_name_one:
+  web_form_field: to_hire_name
+  submission: one
+  value: Joe Smith
+  
+to_hire_email_one:
+  web_form_field: to_hire_email
+  submission: one
+  value: joe@smith.com
+  
+contact_name_two:
+  web_form_field: contact_name
+  submission: two
+  value: Jane Smith
+  

@@ -1,0 +1,7 @@
+contact:
+    name: Contact
+    user: admin
+
+to_hire:
+    name: To Hire
+    user: normal

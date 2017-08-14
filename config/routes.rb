@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
-  get 'users/:id/token_check' => 'users#token_check', as: 'token_check'
+  get 'users/:id/token_check/:nickname' => 'users#token_check', as: 'token_check'
 
   resources :web_forms, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :submissions, only: [:destroy]
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'web_forms/:id/embed_code' => 'web_forms#embed_code', as: 'form_embed'
 
   namespace :api do
-    get "submit/:id" => "submissions_entries#create"
+    get "submit/:id" => "submissions#create"
   end
     
 end

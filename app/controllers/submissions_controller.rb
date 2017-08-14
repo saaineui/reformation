@@ -1,13 +1,9 @@
 class SubmissionsController < ApplicationController
-  before_action :logged_in_user
-  before_action :correct_user
+  skip_before_action :require_admin
+  before_action :find_submission_or_redirect
+  before_action :require_owner
     
   def destroy
-    @submission = Submission.find(params[:id])
-    @submission.submissions_entries.each do |entry|
-      entry.delete
-    end
-
     if @submission.destroy
       flash[:notice] = "1 #{@submission.web_form.name} submission was deleted."
     else
@@ -17,23 +13,20 @@ class SubmissionsController < ApplicationController
   end
 
   private
-  # Before filters
 
-  # Confirms a logged-in user.
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
+  # Before filters
+  def find_submission_or_redirect
+    if Submission.exists?(params[:id])
+      @submission = Submission.find(params[:id])
+    else
+      flash[:danger] = 'That submission does not exist.'
+      redirect_to current_user
     end
   end
 
-  # Confirms the correct user.
-  def correct_user
-    @user = Submission.find(params[:id]).user
-    unless current_user?(@user)
-      flash[:danger] = "You do not have permission to do that."
-      redirect_to(@user) 
-    end
+  def require_owner
+    return false if current_user?(@submission.user)
+    flash[:danger] = 'You do not have permission to do that.'
+    redirect_to current_user
   end
 end

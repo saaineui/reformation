@@ -1,0 +1,11 @@
+one:
+  source: one.com
+  created_at: <%= 15.day.ago.to_s(:db) %>
+  updated_at: <%= 11.day.ago.to_s(:db) %>
+  web_form: to_hire
+  
+two:
+  source: two.com
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 4.day.ago.to_s(:db) %>
+  web_form: contact

@@ -1,33 +1,45 @@
-class User < ActiveRecord::Base
-  attr_accessor :remember_token
-
-  before_save { self.email = email.downcase }
-  validates :name,  presence: true, length: { maximum: 50 }
+class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, length: { maximum: 50 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
+  
+  validates :name,  presence: true, length: { maximum: 50 }
+  validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
+  validates :email, 
+            presence: true, 
+            length: { maximum: 50 }, 
+            format: { with: VALID_EMAIL_REGEX }, 
+            uniqueness: { case_sensitive: false }
 
+  before_save :normalize_email
+  
   has_secure_password
   has_secure_token
 
-  has_many :web_forms
+  has_many :web_forms, dependent: :destroy
 
-  validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
-
-  # Returns the hash digest of the given string.
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-    BCrypt::Engine.cost
+  def self.digest(string)
+    cost = if ActiveModel::SecurePassword.min_cost 
+             BCrypt::Engine::MIN_COST
+           else
+             BCrypt::Engine.cost
+           end
     BCrypt::Password.create(string, cost: cost)
   end
 
-  # Returns a random token.
-  def User.new_token
+  def self.new_token
     SecureRandom.urlsafe_base64
   end
 
-  # Remembers a user in the database for use in persistent sessions.
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+  def token_confirmed?
+    token.eql?(token_confirmation)
+  end
+  
+  def nickname
+    name.downcase.gsub(/(\s|\W)+/, '-')
+  end
+  
+  private
+  
+  def normalize_email
+    self.email = email.downcase
   end
 end
