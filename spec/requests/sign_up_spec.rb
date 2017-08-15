@@ -10,7 +10,7 @@ RSpec.describe 'Sign up and confirm token', type: :request do
     it 'displays sign up and login buttons' do
       get '/'
       assert_select '.container.main-container' do
-        assert_select 'a[href="/signup"]', 'Signup'
+        assert_select 'a[href="/signup"]', 'Sign Up'
         assert_select 'a[href="/login"]', 'Login'
       end
     end

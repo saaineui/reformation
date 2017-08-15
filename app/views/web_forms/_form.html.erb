@@ -1,0 +1,35 @@
+<%= form_for(@web_form) do |f| %>
+    <%= render partial: 'shared/errors', locals: { resource: @web_form } %>
+
+    <%= f.hidden_field :user_id %>
+
+    <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <h3>Form Fields:</h3>
+    <%= f.fields_for :web_form_fields do |web_form_fields_form| %>
+        <div class="form-inline">
+          <div class="form-group">
+              <%= web_form_fields_form.label :name, 'Name: ' %>
+              <%= web_form_fields_form.text_field :name, class: 'form-control' %>
+          </div>
+ 
+          <div class="checkbox">
+              <label><%= web_form_fields_form.check_box :required %> Required?</label>
+          </div>
+
+          <div class="checkbox">
+              <label><%= web_form_fields_form.check_box :_destroy %> Delete</label>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="btn-group btn-group-justified" role="group">
+       <%= btn_group_btn('Cancel', 'remove', cancel_dest) %>
+       <div class="btn-group" role="group">
+           <%= f.submit submit_btn_text, class: 'btn btn-reformation' %>
+       </div>
+    </div>
+<% end %>

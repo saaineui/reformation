@@ -1,21 +1,19 @@
 <div class="page-header">
-    <h2>All Users</h2>
+    <h2><%= glyphicon_span('user') %> All Users</h2>
 </div>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <% if current_user.admin? %>
             <th>Token</th>
             <th>Token Confirmation</th>
             <th>Actions</th>
-            <% end %>
         </tr>
     </thead>
     <tbody>
         <% @users.each do |user| %>
-            <%= render user %>
+<%= render user %>
         <% end %>
     </tbody>
 </table>

@@ -1,9 +1,7 @@
             <tr>
                 <td><%= current_user?(user) ? link_to(user.name, user_path(user)) : user.name %></td>
                 <td><%= user.email %></td>
-                <% if current_user.admin? %>
                 <td><%= user.token %></td>
                 <td><%= user.token_confirmation %></td>
-                <td><%= link_to("Delete", user, method: :delete) %></td>
-                <% end %>
+                <td><%= delete_with_confirm(user) %></td>
             </tr>

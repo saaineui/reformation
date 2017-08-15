@@ -4,7 +4,8 @@ class WebFormsController < ApplicationController
   before_action :require_owner, except: %i[new create]
   
   def new
-    @web_form = WebForm.new
+    @web_form = WebForm.new(user: current_user)
+    8.times { @web_form.web_form_fields.build }
   end
   
   def create
@@ -42,9 +43,7 @@ class WebFormsController < ApplicationController
     redirect_to current_user
   end
 
-  def submissions
-    @col_class = ''
-  end
+  def submissions; end
 
   def embed_code; end
 

@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h2><%= content_tag(:span, "", class: "glyphicon glyphicon-user") %> <%= @user.name %></h2>
+    <h2><%= glyphicon_span('user') %> <%= @user.name %></h2>
 </div>
 <table class="table">
     <thead>
@@ -23,20 +23,17 @@
         <tr>
             <th>Forms:</th>
             <td>
-                <div class="btn-group-vertical" role="group">
-                    <%= @user.web_forms.map{ |form| link_to(form.name, form, class: "btn btn-default") }.join().html_safe %>
-                    <%= link_to "New Form", new_web_form_path, class: "btn btn-primary" %>
+                <div class="btn-group-vertical web-form-list" role="group">
+                  <% @user.web_forms.each do |form| %>
+                    <%= link_to(glyphicon_span('tasks') + ' ' + form.name, form, class: 'btn btn-highlight') %>
+                  <% end %>
                 </div>
             </td>
         </tr>
     </tbody>
 </table>
-    <div class="btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-            <%= link_to "Edit", edit_user_path(current_user), class: "btn btn-default" %>
-        </div>
-        <div class="btn-group" role="group">
-            <%= link_to "New Form", new_web_form_path(user_id: current_user), class: "btn btn-primary" %>
-        </div>
-    </div>
+<div class="btn-group btn-group-justified" role="group">
+    <%= btn_group_btn('Edit Profile', 'edit', edit_user_path(current_user)) %>
+    <%= btn_group_btn('New Form', 'plus', new_web_form_path) %>
+</div>
  
