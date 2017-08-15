@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionsController, type: :controller do
-  fixtures :submissions, :web_forms, :users
+  fixtures :submissions, :submissions_entries, :web_forms, :users
   let(:owned) { submissions(:one) }
   let(:not_owned) { submissions(:two) }
   let(:hire_form) { web_forms(:to_hire) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  fixtures :users
+  fixtures :users, :submissions_entries
   let(:admin_user) { users(:admin) }
   let(:user) { users(:normal) }
   let(:new_user_name) { 'New User' }
