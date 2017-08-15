@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe WebFormsController, type: :controller do
-  fixtures :web_forms, :users
+  fixtures :web_forms, :web_form_fields, :users
   let(:contact_form) { web_forms(:contact) }
   let(:hire_form) { web_forms(:to_hire) }
+  let(:name_field) { web_form_fields(:to_hire_name) }
+  let(:email_field) { web_form_fields(:to_hire_email) }
   let(:user) { users(:normal) }
   let(:new_form_name) { 'New Form' }
 
@@ -109,8 +111,20 @@ RSpec.describe WebFormsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:form_name) { hire_form.name }
-    let(:update_params) { { id: hire_form.id, web_form: { name: new_form_name } } }
+    let(:hire_form_name) { hire_form.name }
+    let(:contact_form_name) { contact_form.name }
+    let(:update_params) do
+      { 
+        id: hire_form.id, 
+        web_form: { 
+            name: new_form_name, 
+            web_form_fields_attributes: {
+              '0' => { name: new_form_name, required: '1', _destroy: '0', id: name_field.id },  
+              '1' => { name: email_field.name, required: '1', _destroy: '1', id: email_field.id }
+            } 
+        } 
+      } 
+    end
 
     context 'when logged out' do
       it 'redirects to login without updating' do
@@ -118,7 +132,8 @@ RSpec.describe WebFormsController, type: :controller do
         expect(response).to redirect_to(login_path)
 
         hire_form.reload
-        expect(hire_form.name).to be(form_name)
+        expect(hire_form.name).to eq(hire_form_name)
+        expect(WebFormField.find(email_field.id)).to eq(email_field)
       end
     end
 
@@ -129,7 +144,11 @@ RSpec.describe WebFormsController, type: :controller do
         expect(response).to redirect_to(web_form_path(hire_form))
 
         hire_form.reload
+        name_field.reload
         expect(hire_form.name).to eq(new_form_name)
+        expect(name_field.name).to eq(new_form_name)
+        expect(name_field.required?).to be(true)
+        expect { WebFormField.find(email_field.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       context 'and resource is not owned' do
@@ -138,8 +157,8 @@ RSpec.describe WebFormsController, type: :controller do
           patch :update, params: { id: contact_form.id, web_form: { name: new_form_name } }
           expect(response).to redirect_to(user_path(user))
 
-          hire_form.reload
-          expect(hire_form.name).to be(form_name)
+          contact_form.reload
+          expect(contact_form.name).to eq(contact_form_name)
         end
       end
 
@@ -171,7 +190,7 @@ RSpec.describe WebFormsController, type: :controller do
         
         expect(WebFormField.find_by(web_form: hire_form)).to be(nil)
         expect(Submission.find_by(web_form: hire_form)).to be(nil)
-        expect(SubmissionsEntry.all.count).to be(1)
+        expect(SubmissionsEntry.all.count).to eq(1)
       end
 
       context 'and resource is not owned' do

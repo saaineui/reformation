@@ -24,7 +24,7 @@ RSpec.describe SubmissionsController, type: :controller do
         expect { Submission.find(owned.id) }.to raise_error(ActiveRecord::RecordNotFound)
 
         expect(SubmissionsEntry.find_by(submission: owned)).to be(nil)
-        expect(SubmissionsEntry.all.count).to be(1)
+        expect(SubmissionsEntry.all.count).to eq(1)
       end
 
       context 'and resource is not owned' do

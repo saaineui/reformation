@@ -254,9 +254,9 @@ RSpec.describe UsersController, type: :controller do
         expect { User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
         
         expect(WebForm.find_by(user: user)).to be(nil)
-        expect(WebFormField.all.count).to be(1)
-        expect(Submission.all.count).to be(1)
-        expect(SubmissionsEntry.all.count).to be(1)
+        expect(WebFormField.all.count).to eq(1)
+        expect(Submission.all.count).to eq(1)
+        expect(SubmissionsEntry.all.count).to eq(1)
       end
       
       context 'and resource is not found' do

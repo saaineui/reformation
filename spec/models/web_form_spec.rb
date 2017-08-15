@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe WebForm, type: :model do
-  fixtures :web_forms
+  fixtures :web_forms, :web_form_fields
   let(:contact_form) { web_forms(:contact) }
   
   it 'is valid with valid attributes' do
