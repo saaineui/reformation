@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe WebFormsController, type: :controller do
-  fixtures :web_forms, :web_form_fields, :users
+  fixtures :submissions, :submissions_entries, :web_forms, :web_form_fields, :users
   let(:contact_form) { web_forms(:contact) }
   let(:hire_form) { web_forms(:to_hire) }
   let(:name_field) { web_form_fields(:to_hire_name) }

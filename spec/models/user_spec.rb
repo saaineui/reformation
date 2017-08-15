@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  FAKE_PASSWORD = 'foobarbar'.freeze
-
-  fixtures :users
+  fixtures :submissions, :submissions_entries, :web_forms, :web_form_fields, :users
   
   let(:user) { users(:normal) }
   let(:admin_user) { users(:admin) }
-  let(:new_user) { User.create(name: 'Jane Doe', email: 'JANE@DOE.COM', password: FAKE_PASSWORD) }
+  let(:new_user) { User.create(name: 'Jane Doe', email: 'JANE@DOE.COM', password: fake_password) }
+  let(:fake_password) { 'foobarbar' }
 
   it 'is valid with valid attributes' do
     expect(user).to be_valid
@@ -38,11 +37,11 @@ RSpec.describe User, type: :model do
     it { should validate_confirmation_of(:password).on(:create) }
 
     it '::digest converts password string to valid BCrypt::Password' do
-      new_user_digest = User.digest(FAKE_PASSWORD)
+      new_user_digest = User.digest(fake_password)
       
       expect(new_user_digest.class).to eq(BCrypt::Password)
       expect(new_user_digest.length).to eq(60)
-      expect(new_user_digest == FAKE_PASSWORD).to be(true)
+      expect(new_user_digest == fake_password).to be(true)
     end
     
     it '#normalize_email downcases email address' do

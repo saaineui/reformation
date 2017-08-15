@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionsEntry, type: :model do
-  fixtures :submissions_entries, :web_form_fields
+  fixtures :submissions, :submissions_entries, :web_forms, :web_form_fields, :users
   let(:required_entry) { submissions_entries(:to_hire_email_one) }
   let(:not_required_entry) { submissions_entries(:to_hire_name_one) }
   

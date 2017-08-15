@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Submission, type: :model do
-  fixtures :submissions
+  fixtures :submissions, :submissions_entries, :web_forms, :web_form_fields, :users
   
   let(:submission) { submissions(:one) }
   

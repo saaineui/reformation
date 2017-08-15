@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe WebFormField, type: :model do
-  fixtures :web_form_fields
+  fixtures :submissions, :submissions_entries, :web_forms, :web_form_fields, :users
   
   let(:field) { web_form_fields(:to_hire_name) }
   let(:required_is_true) { proc { |field| field.required? } }
