@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  CORRECT_PASSWORD = 'password'.freeze
-  INCORRECT_PASSWORD = 'notcorrect'.freeze
-  
   fixtures :users
+  
+  let(:correct_password) { 'password' }
+  let(:incorrect_password) { 'notcorrect' }
+  
   let(:confirmed_user) { users(:admin) }
   let(:unconfirmed_user) { users(:normal) }
-  let(:unconfirmed_params) { { session: { email: unconfirmed_user.email, password: CORRECT_PASSWORD } } }
+  let(:unconfirmed_params) { { session: { email: unconfirmed_user.email, password: correct_password } } }
   
   describe 'GET #new' do
     context 'when logged out' do
@@ -32,14 +33,14 @@ RSpec.describe SessionsController, type: :controller do
       context 'for confirmed account' do
         context 'with valid data' do
           it 'logs in and redirects to profile' do
-            post :create, params: { session: { email: confirmed_user.email, password: CORRECT_PASSWORD } }
+            post :create, params: { session: { email: confirmed_user.email, password: correct_password } }
             expect(response).to redirect_to(user_path(confirmed_user))
           end
         end
 
         context 'with invalid data' do
           it 'renders new template with errors' do
-            post :create, params: { session: { email: confirmed_user.email, password: INCORRECT_PASSWORD } }
+            post :create, params: { session: { email: confirmed_user.email, password: incorrect_password } }
             expect(response).to be_success
             expect(response).to render_template('new')
           end

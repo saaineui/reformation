@@ -4,9 +4,9 @@ RSpec.describe UsersController, type: :controller do
   fixtures :users
   let(:admin_user) { users(:admin) }
   let(:user) { users(:normal) }
-  NEW_USER_NAME = 'New User'.freeze
-  NEW_USER_EMAIL = 'newuser@email.com'.freeze
-  PASSWORD = 'password'.freeze
+  let(:new_user_name) { 'New User' }
+  let(:new_user_email) { 'newuser@email.com' }
+  let(:password) { 'password' }
   
   describe 'GET #index' do
     context 'when logged in as admin' do
@@ -53,20 +53,20 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:create_params) { { user: { name: NEW_USER_NAME, email: NEW_USER_EMAIL, password: PASSWORD } } } 
+    let(:create_params) { { user: { name: new_user_name, email: new_user_email, password: password } } } 
     
     context 'when logged out' do
       context 'with valid data' do
         it 'creates user and redirects to profile' do
           post :create, params: create_params
-          new_user = User.find_by_name(NEW_USER_NAME)
+          new_user = User.find_by_name(new_user_name)
           expect(response).to redirect_to(token_check_path(new_user, nickname: new_user.nickname))
         end
       end
       
       context 'with incomplete data' do
         it 'renders new template with errors' do
-          post :create, params: { user: { name: NEW_USER_NAME, email: NEW_USER_EMAIL, password: '' } }
+          post :create, params: { user: { name: new_user_name, email: new_user_email, password: '' } }
           expect(response).to be_success
           expect(response).to render_template('new')
         end
@@ -78,7 +78,7 @@ RSpec.describe UsersController, type: :controller do
         sign_in(user)
         post :create, params: create_params
         expect(response).to redirect_to(user_path(user))
-        expect(User.where(name: NEW_USER_NAME).count).to eq(0)
+        expect(User.where(name: new_user_name).count).to eq(0)
       end
     end
   end
@@ -173,7 +173,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'PATCH #update' do
     let(:email) { user.email }
-    let(:update_params) { { id: user.id, user: { name: user.name, email: NEW_USER_EMAIL } } }
+    let(:update_params) { { id: user.id, user: { name: user.name, email: new_user_email } } }
 
     context 'when logged out' do
       it 'redirects to login without updating' do
@@ -192,13 +192,13 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(user_path(user))
 
         user.reload
-        expect(user.email).to eq(NEW_USER_EMAIL)
+        expect(user.email).to eq(new_user_email)
       end
 
       context 'and resource is not owned' do
         it 'redirects to root without updating' do
           sign_in(user)
-          patch :update, params: { id: admin_user.id, user: { name: admin_user.name, email: NEW_USER_EMAIL } }
+          patch :update, params: { id: admin_user.id, user: { name: admin_user.name, email: new_user_email } }
           expect(response).to redirect_to(root_path)
 
           user.reload
@@ -209,7 +209,7 @@ RSpec.describe UsersController, type: :controller do
       context 'and resource is not found' do
         it 'redirects to users index' do
           sign_in(user)
-          patch :update, params: { id: -1, user: { name: NEW_USER_NAME, email: NEW_USER_EMAIL } }
+          patch :update, params: { id: -1, user: { name: new_user_name, email: new_user_email } }
           expect(response).to redirect_to(root_path)
         end
       end
@@ -234,11 +234,16 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when logged in as admin' do
-      it 'deletes resource and redirects to users index' do
+      it 'deletes resource and dependents, and redirects to users index' do
         sign_in(admin_user)
         delete :destroy, params: { id: user.id }
         expect(response).to redirect_to(users_path)
         expect { User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        
+        expect(WebForm.find_by(user: user)).to be(nil)
+        expect(WebFormField.all.count).to be(1)
+        expect(Submission.all.count).to be(1)
+        expect(SubmissionsEntry.all.count).to be(1)
       end
       
       context 'and resource is not found' do

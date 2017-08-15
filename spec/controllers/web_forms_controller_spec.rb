@@ -5,7 +5,7 @@ RSpec.describe WebFormsController, type: :controller do
   let(:contact_form) { web_forms(:contact) }
   let(:hire_form) { web_forms(:to_hire) }
   let(:user) { users(:normal) }
-  NEW_FORM_NAME = 'New Form'.freeze
+  let(:new_form_name) { 'New Form' }
 
   describe 'GET #new' do
     context 'when logged out' do
@@ -26,7 +26,7 @@ RSpec.describe WebFormsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:create_params) { { web_form: { name: NEW_FORM_NAME, user_id: user.id } } } 
+    let(:create_params) { { web_form: { name: new_form_name, user_id: user.id } } } 
     
     context 'when logged out' do
       it 'redirects to login' do
@@ -40,7 +40,7 @@ RSpec.describe WebFormsController, type: :controller do
         it 'creates form and redirects to form show page' do
           sign_in(user)
           post :create, params: create_params
-          web_form = WebForm.find_by_name(NEW_FORM_NAME)
+          web_form = WebForm.find_by_name(new_form_name)
           expect(response).to redirect_to(web_form_path(web_form))
         end
       end
@@ -110,7 +110,7 @@ RSpec.describe WebFormsController, type: :controller do
 
   describe 'PATCH #update' do
     let(:form_name) { hire_form.name }
-    let(:update_params) { { id: hire_form.id, web_form: { name: NEW_FORM_NAME } } }
+    let(:update_params) { { id: hire_form.id, web_form: { name: new_form_name } } }
 
     context 'when logged out' do
       it 'redirects to login without updating' do
@@ -129,13 +129,13 @@ RSpec.describe WebFormsController, type: :controller do
         expect(response).to redirect_to(web_form_path(hire_form))
 
         hire_form.reload
-        expect(hire_form.name).to eq(NEW_FORM_NAME)
+        expect(hire_form.name).to eq(new_form_name)
       end
 
       context 'and resource is not owned' do
         it 'redirects to profile page without updating' do
           sign_in(user)
-          patch :update, params: { id: contact_form.id, web_form: { name: NEW_FORM_NAME } }
+          patch :update, params: { id: contact_form.id, web_form: { name: new_form_name } }
           expect(response).to redirect_to(user_path(user))
 
           hire_form.reload
@@ -146,7 +146,7 @@ RSpec.describe WebFormsController, type: :controller do
       context 'and resource is not found' do
         it 'redirects to users index' do
           sign_in(user)
-          patch :update, params: { id: -1, web_form: { name: NEW_FORM_NAME } }
+          patch :update, params: { id: -1, web_form: { name: new_form_name } }
           expect(response).to redirect_to(user_path(user))
         end
       end
@@ -163,11 +163,15 @@ RSpec.describe WebFormsController, type: :controller do
     end
 
     context 'when logged in' do
-      it 'deletes resource and redirects to profile page' do
+      it 'deletes resource and dependents, and redirects to profile page' do
         sign_in(user)
         delete :destroy, params: { id: hire_form.id }
         expect(response).to redirect_to(user_path(user))
         expect { WebForm.find(hire_form.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        
+        expect(WebFormField.find_by(web_form: hire_form)).to be(nil)
+        expect(Submission.find_by(web_form: hire_form)).to be(nil)
+        expect(SubmissionsEntry.all.count).to be(1)
       end
 
       context 'and resource is not owned' do

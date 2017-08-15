@@ -3,13 +3,13 @@ admin:
     email: admin@example.com
     password_digest: <%= User.digest('password') %>
     admin: true
-    token: 3WC8kXN1n-mEOPhC52uO0w
-    token_confirmation: 3WC8kXN1n-mEOPhC52uO0w
+    token: 3WC8kXN1n-mEOPhC52uO0w23
+    token_confirmation: 3WC8kXN1n-mEOPhC52uO0w23
 
 normal:
     name: Ms. Normal
     email: normal@example.gov
     password_digest: <%= User.digest('password') %>
-    token: G4JsokU2slUr7SkK93nVMg
+    token: G4JsokU2slUr7SkK93nVMg45
     token_confirmation: nil
     

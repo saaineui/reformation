@@ -17,12 +17,14 @@ RSpec.describe SubmissionsController, type: :controller do
     end
 
     context 'when logged in' do
-      it 'deletes resource and dependents and redirects to profile page' do
+      it 'deletes resource and dependents, and redirects to profile page' do
         sign_in(user)
         delete :destroy, params: { id: owned.id }
         expect(response).to redirect_to(submissions_path(hire_form))
         expect { Submission.find(owned.id) }.to raise_error(ActiveRecord::RecordNotFound)
-        expect(SubmissionsEntry.where(submission_id: owned.id).count).to eq(0)
+
+        expect(SubmissionsEntry.find_by(submission: owned)).to be(nil)
+        expect(SubmissionsEntry.all.count).to be(1)
       end
 
       context 'and resource is not owned' do
