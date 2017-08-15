@@ -17,7 +17,9 @@
 !/log/.keep
 !/tmp/.keep
 
-# Ignore Byebug command history file.
+# Ignore dev and test artifacts.
 .byebug_history
+coverage
+spec/examples.txt
 
 .DS_Store

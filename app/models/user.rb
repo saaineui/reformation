@@ -25,10 +25,6 @@ class User < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
-
   def token_confirmed?
     token.eql?(token_confirmation)
   end

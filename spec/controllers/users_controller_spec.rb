@@ -21,7 +21,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when logged in as regular user' do
       it 'redirects to root' do
         sign_in(user)
-        get :edit, params: { id: admin_user.id }
+        get :index
         expect(response).to redirect_to(root_path)
       end
     end
@@ -172,7 +172,8 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:email) { user.email }
+    let(:user_email) { user.email }
+    let(:admin_email) { admin_user.email }
     let(:update_params) { { id: user.id, user: { name: user.name, email: new_user_email } } }
 
     context 'when logged out' do
@@ -181,7 +182,7 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(login_path)
 
         user.reload
-        expect(user.email).to be(email)
+        expect(user.email).to be(user_email)
       end
     end
 
@@ -195,14 +196,26 @@ RSpec.describe UsersController, type: :controller do
         expect(user.email).to eq(new_user_email)
       end
 
+      context 'with invalid data' do
+        it 'renders edit template with errors' do
+          sign_in(user)
+          patch :update, params: { id: user.id, user: { name: user.name, email: 'asdflkjssdf' } }
+          expect(response).to be_success
+          expect(response).to render_template('edit')
+
+          user.reload
+          expect(user.email).to be(user_email)
+        end
+      end
+      
       context 'and resource is not owned' do
         it 'redirects to root without updating' do
           sign_in(user)
           patch :update, params: { id: admin_user.id, user: { name: admin_user.name, email: new_user_email } }
           expect(response).to redirect_to(root_path)
 
-          user.reload
-          expect(user.email).to be(email)
+          admin_user.reload
+          expect(admin_user.email).to be(admin_email)
         end
       end
 

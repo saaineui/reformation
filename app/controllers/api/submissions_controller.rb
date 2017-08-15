@@ -63,7 +63,6 @@ module Api
     end
 
     # Filters and filter helpers
-    
     def restrict_access
       head :unauthorized unless find_form && token_matches?
     end
@@ -76,7 +75,7 @@ module Api
     
     def token_matches?
       return false if params[:token].nil? 
-      user = User.find_by_token(params[:token]) 
+      user = User.find_by(token: params[:token]) 
       user && user.eql?(@web_form.user)
     end
 

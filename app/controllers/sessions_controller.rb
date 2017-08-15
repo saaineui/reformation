@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   private
   
   def find_and_authenticate_user
-    @user = User.find_by_email(params[:session][:email])
+    @user = User.find_by(email: params[:session][:email])
     @user && @user.authenticate(params[:session][:password])
   end
   
