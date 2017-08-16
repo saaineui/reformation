@@ -5,23 +5,28 @@
 <table class="table">
     <thead>
         <tr>
-            <%- @web_form.web_form_fields.each do |field| %>
-            <th><%= field.name %></th>
-            <%- end %>
+            <% @web_form.web_form_fields.each do |field| %>
+              <th>
+                <%= field.name %>
+              </th>
+            <% end %>
             <th>Source</th>
             <th>Date</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <% @web_form.submissions.order("created_at DESC").each do |submission| %>
-        <tr>
-            <% @web_form.web_form_fields.each do |field| %>
-            <td><%= SubmissionsEntry.where(web_form_field_id: field.id, submission_id: submission.id).count > 0 ? SubmissionsEntry.where(web_form_field_id: field.id, submission_id: submission.id).first.value : "-" %></td>
-            <% end %>
-            <td><%= submission.source %></td>
-            <td><%= submission.created_at.strftime("%b %d, %Y (%a)") %></td>
-            <td><%= delete_with_confirm(submission) %></td>
-        </tr>
+          <tr>
+              <% @web_form.web_form_fields.each do |field| %>
+                <td>
+                  <%= submission.value_for_field(field) %>
+                </td>
+              <% end %>
+              <td><%= submission.source %></td>
+              <td><%= submission.created_at.strftime("%b %d, %Y (%a)") %></td>
+              <td><%= delete_with_confirm(submission) %></td>
+          </tr>
         <% end %>
     </tbody>
 </table>
