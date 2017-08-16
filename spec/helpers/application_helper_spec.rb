@@ -6,7 +6,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   let(:field) { web_form_fields(:to_hire_name) }
 
   describe '#btn_group_btn' do
-    let(:delete_btn) { btn_group_btn('Delete', 'remove', 'http://example.com', 'navbar-btn', { method: :delete }) }
+    let(:delete_btn) { btn_group_btn('Delete', 'remove', 'http://example.com', 'navbar-btn', method: :delete) }
     let(:delete_btn_source) { '<div class="btn-group" role="group"><a class="btn btn-default navbar-btn" rel="nofollow" data-method="delete" href="http://example.com"><span class="glyphicon glyphicon-remove"></span> Delete</a></div>' }
     let(:plain_delete_btn_source) { delete_btn_source.sub('navbar-btn" rel="nofollow" data-method="delete', '') }
     
