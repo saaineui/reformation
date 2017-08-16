@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Manage web forms', type: :request do
-  fixtures :web_forms, :users
+  fixtures :submissions, :submissions_entries, :web_forms, :web_form_fields, :users
   let(:user) { users(:normal) }
   let(:form) { web_forms(:to_hire) }
   let(:submission) { form.submissions.first }
