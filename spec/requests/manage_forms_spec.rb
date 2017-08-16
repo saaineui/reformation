@@ -10,6 +10,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'homepage shows all and only forms owned by user' do
       sign_in(user)
       get('/')
+      assert_select 'title', 'Reformation | home'
       assert_select '.home-forms-index' do
         assert_select '.btn-group-justified', 1
         assert_select "a[href='#{web_form_path(form)}']", 'To Hire'
@@ -22,6 +23,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'profile page shows all forms of user and new form button' do
       sign_in(user)
       get user_path(user)
+      assert_select 'title', 'Reformation | Ms. Normal'
       assert_select '.web-form-list' do
         assert_select "a[href='#{web_form_path(form)}']", 'To Hire'
       end
@@ -31,6 +33,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'form summary page shows all fields' do
       sign_in(user)
       get web_form_path(form)
+      assert_select 'title', 'Reformation | To Hire'
       assert_select 'table' do
         form.web_form_fields.each_with_index do |field, index|
           assert_select "tr:nth-child(#{index + 1}) td:first-child", field.id.to_s
@@ -47,6 +50,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'submissions page shows all submissions with delete buttons' do
       sign_in(user)
       get submissions_path(form)
+      assert_select 'title', 'Reformation | submissions > To Hire'
       assert_select 'tr', form.submissions.count + 1
       assert_select 'td', 'Joe Smith'
       assert_select 'td', 'joe@smith.com'
@@ -57,6 +61,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'embed code page shows code for form in a well' do
       sign_in(user)
       get form_embed_path(form)
+      assert_select 'title', 'Reformation | embed code > To Hire'
       assert_select 'pre', "
 <form id='reformation-form' action='http://www.example.com/api/submit/#{form.id}'>
     <input type='hidden' name='token' value='G4JsokU2slUr7SkK93nVMg45' />
@@ -73,6 +78,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'edit form page displays form with existing data' do
       sign_in(user)
       get edit_web_form_path(form)
+      assert_select 'title', 'Reformation | edit To Hire'
       assert_select 'form.edit_web_form' do
         assert_select 'input[type=text]', 11
         assert_select 'input[type=checkbox]', 20
@@ -86,6 +92,7 @@ RSpec.describe 'Manage web forms', type: :request do
     it 'new form page displays blank form' do
       sign_in(user)
       get new_web_form_path
+      assert_select 'title', 'Reformation | new web form'
       assert_select 'form#new_web_form' do
         assert_select 'input[type=text]', 9
         assert_select 'input[type=checkbox]', 16

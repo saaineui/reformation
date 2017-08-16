@@ -9,6 +9,7 @@ RSpec.describe 'Manage users', type: :request do
     it 'all users page shows all users in a table' do
       sign_in(admin_user)
       get(users_path)
+      assert_select 'title', 'Reformation | users'
       assert_select 'table.table-striped' do
         assert_select "a[href='#{user_path(admin_user)}']", admin_user.name
         User.all.each do |u|

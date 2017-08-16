@@ -19,6 +19,7 @@ RSpec.describe 'Sign up and confirm token', type: :request do
   context 'signup' do
     it 'displays sign up form' do
       get '/signup'
+      assert_select 'title', 'Reformation | new user'
       assert_select 'form#new_user' do
         assert_select 'input[name="user[name]"]', 1
         assert_select 'input[name="user[email]"]', 1

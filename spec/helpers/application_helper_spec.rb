@@ -69,4 +69,36 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(embed_input(field)).to eq(input)
     end
   end
+  
+  context 'page title helper methods' do
+    describe '#page_title' do
+      it 'returns descriptive string title' do
+        expect(page_title(controller)).to eq('test')
+      end
+    end
+    
+    describe '#page_title_noun' do
+      it 'returns noun for title' do
+        expect(page_title_noun(controller)).to eq('test')
+      end
+    end
+    
+    describe '#page_title_verb' do
+      it 'returns verb for title' do
+        expect(page_title_verb(controller)).to eq('')
+      end
+    end
+    
+    describe '#instance_page?' do
+      it 'returns true if page is for a specific record' do
+        expect(instance_page?(controller)).to be(false)
+      end
+    end
+    
+    describe '#class_from_controller' do
+      it 'returns class constant for controller' do
+        expect(class_from_controller(controller)).to eq(false)
+      end
+    end
+  end
 end

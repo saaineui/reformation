@@ -8,6 +8,7 @@ RSpec.describe 'Login and logout', type: :request do
   context 'login' do
     it 'displays login form' do
       get '/login'
+      assert_select 'title', 'Reformation | login'
       assert_select 'form' do
         assert_select 'input[name="session[email]"]', 1
         assert_select 'input[name="session[password]"]', 1

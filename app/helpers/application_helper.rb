@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def page_title(controller)
+    return 'login' if controller.controller_name.eql?('sessions')
+    words = [page_title_verb(controller), page_title_noun(controller)].reject(&:empty?)
+    words.join(' ').tr('_', ' ')
+  end
+  
   def btn_group_btn(text, icon_name, href, extra_class = '', extra_options = {})
     options = { class: btn_class(extra_class) }.merge(extra_options)
     inner_content = link_to(glyphicon_span(icon_name) + ' ' + text, href, options)
@@ -45,5 +51,45 @@ module ApplicationHelper
     output = "<input type='text' name='web_form_field_#{field.id}' placeholder='#{field.name}' "
     output += field.required? ? 'required />' : '/>'
     output
+  end
+    
+  private
+  
+  def page_title_noun(controller)
+    return '' if controller.controller_name.eql?('landing')
+    
+    if instance_page?(controller)
+      resource = class_from_controller(controller).find(params[:id])
+      return resource.name if resource.respond_to?(:name)
+    end
+    
+    if controller.action_name.eql?('index')
+      controller.controller_name
+    else
+      controller.controller_name.singularize
+    end
+  end
+
+  def page_title_verb(controller)
+    case controller.action_name
+    when 'index', 'show', nil
+      ''
+    when 'embed_code', 'submissions'
+      controller.action_name + ' >'
+    else
+      controller.action_name
+    end
+  end
+  
+  def instance_page?(controller)
+    return false unless params[:id]
+    resource = class_from_controller(controller)
+    resource && resource.exists?(params[:id])
+  end
+  
+  def class_from_controller(controller)
+    Object.const_get(controller.controller_name.singularize.titleize.gsub(/\s/, ''))
+  rescue
+    false
   end
 end
