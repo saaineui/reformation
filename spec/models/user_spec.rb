@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end
   
-  it { should have_many(:web_forms).dependent(:destroy) }
+  it { is_expected.to have_many(:web_forms).dependent(:destroy) }
 
   context 'prior to creating new' do
     it '::new_token creates 24 character token' do
@@ -22,19 +22,19 @@ RSpec.describe User, type: :model do
   end
   
   context 'prior to creating new or saving changes to' do
-    it { should validate_presence_of(:name) }
-    it { should validate_length_of(:name).is_at_most(50) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(50) }
 
-    it { should validate_presence_of(:email) }
-    it { should validate_uniqueness_of(:email).ignoring_case_sensitivity }
-    it { should validate_length_of(:email).is_at_most(50) }
-    it { should allow_values('wacky-email.mail@wacky.co.uk', 'other__-_@ok.gov').for(:email) }
-    it { should_not allow_values('iamabotemail', 'http://goo.com', 'gmail.com@not').for(:email) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
+    it { is_expected.to validate_length_of(:email).is_at_most(50) }
+    it { is_expected.to allow_values('wacky-email.mail@wacky.co.uk', 'other__-_@ok.gov').for(:email) }
+    it { is_expected.to_not allow_values('iamabotemail', 'http://goo.com', 'gmail.com@not').for(:email) }
 
-    it { should validate_presence_of(:password) }
-    it { should validate_length_of(:password).is_at_least(8) }
-    it { should have_secure_password }
-    it { should validate_confirmation_of(:password).on(:create) }
+    it { is_expected.to validate_presence_of(:password) }
+    it { is_expected.to validate_length_of(:password).is_at_least(8) }
+    it { is_expected.to have_secure_password }
+    it { is_expected.to validate_confirmation_of(:password).on(:create) }
 
     it '::digest converts password string to valid BCrypt::Password' do
       new_user_digest = User.digest(fake_password)

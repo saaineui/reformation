@@ -9,9 +9,9 @@ RSpec.describe SubmissionsEntry, type: :model do
     expect(required_entry).to be_valid
   end
   
-  it { should belong_to(:submission) }
-  it { should belong_to(:web_form_field) }
-  it { should delegate_method(:required?).to(:web_form_field) }
+  it { is_expected.to belong_to(:submission) }
+  it { is_expected.to belong_to(:web_form_field) }
+  it { is_expected.to delegate_method(:required?).to(:web_form_field) }
   
   it '#required? returns true if web form field is required' do
     expect(required_entry.required?).to be(true)
@@ -19,8 +19,8 @@ RSpec.describe SubmissionsEntry, type: :model do
   end
 
   context 'prior to creating new or saving changes to' do
-    it { should validate_presence_of(:submission) } 
-    it { should validate_presence_of(:web_form_field) }
+    it { is_expected.to validate_presence_of(:submission) } 
+    it { is_expected.to validate_presence_of(:web_form_field) }
     
     context 'field is required' do
       before { allow(subject).to receive(:required?).and_return(true) }

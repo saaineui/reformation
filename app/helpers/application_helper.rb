@@ -1,7 +1,7 @@
 module ApplicationHelper
   def page_title(controller)
     return 'login' if controller.controller_name.eql?('sessions')
-    words = [page_title_verb(controller), page_title_noun(controller)].reject(&:empty?)
+    words = [page_title_verb(controller), page_title_noun(controller, params[:id])].reject(&:empty?)
     words.join(' ').tr('_', ' ')
   end
   
@@ -55,11 +55,11 @@ module ApplicationHelper
     
   private
   
-  def page_title_noun(controller)
+  def page_title_noun(controller, resource_id = nil)
     return '' if controller.controller_name.eql?('landing')
     
-    if instance_page?(controller)
-      resource = class_from_controller(controller).find(params[:id])
+    if instance_page?(controller, resource_id)
+      resource = class_from_controller(controller).find(resource_id)
       return resource.name if resource.respond_to?(:name)
     end
     
@@ -81,10 +81,10 @@ module ApplicationHelper
     end
   end
   
-  def instance_page?(controller)
-    return false unless params[:id]
+  def instance_page?(controller, resource_id)
+    return false unless resource_id
     resource = class_from_controller(controller)
-    resource && resource.exists?(params[:id])
+    resource && resource.exists?(resource_id)
   end
   
   def class_from_controller(controller)

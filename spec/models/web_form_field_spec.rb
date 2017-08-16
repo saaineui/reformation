@@ -10,8 +10,8 @@ RSpec.describe WebFormField, type: :model do
     expect(field).to be_valid
   end
   
-  it { should belong_to(:web_form) }
-  it { should have_many(:submissions_entries) }
+  it { is_expected.to belong_to(:web_form) }
+  it { is_expected.to have_many(:submissions_entries) }
 
   it '#required scope selects required fields' do
     expect(WebFormField.required.count).to eq(2)
@@ -19,6 +19,6 @@ RSpec.describe WebFormField, type: :model do
   end
 
   context 'prior to creating new or saving changes to' do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
   end
 end

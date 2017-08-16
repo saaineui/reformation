@@ -10,13 +10,13 @@ RSpec.describe Submission, type: :model do
     expect(submission).to be_valid
   end
   
-  it { should belong_to(:web_form) }
-  it { should have_one(:user) }
-  it { should have_many(:submissions_entries).dependent(:destroy) }
+  it { is_expected.to belong_to(:web_form) }
+  it { is_expected.to have_one(:user) }
+  it { is_expected.to have_many(:submissions_entries).dependent(:destroy) }
 
   context 'prior to creating new or saving changes to' do
-    it { should validate_presence_of(:source) } 
-    it { should validate_presence_of(:web_form) }
+    it { is_expected.to validate_presence_of(:source) } 
+    it { is_expected.to validate_presence_of(:web_form) }
   end
   
   context 'on submissions table' do
