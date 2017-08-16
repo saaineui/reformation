@@ -21,7 +21,7 @@
           </div>
 
           <div class="checkbox">
-              <label><%= web_form_fields_form.check_box :_destroy %> Delete</label>
+              <label><%= web_form_fields_form.check_box :_destroy, class: 'toggle-disable' %> Delete</label>
           </div>
         </div>
     <% end %>
@@ -33,3 +33,4 @@
        </div>
     </div>
 <% end %>
+<%= javascript_include_tag 'web_form_form' %>
