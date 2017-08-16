@@ -19,9 +19,9 @@ RSpec.describe WebForm, type: :model do
     it { should accept_nested_attributes_for(:web_form_fields).allow_destroy(true) }
     
     it '#name_blank? returns true if name attribute is blank' do
-      expect(contact_form.send(:name_blank?, { 'name' => '' })).to be(true)
-      expect(contact_form.send(:name_blank?, { 'name' => 'A Name' })).to be(false)
-      expect(contact_form.send(:name_blank?, { 'required' => true })).to be(true)
+      expect(contact_form.send(:name_blank?, 'name' => '')).to be(true)
+      expect(contact_form.send(:name_blank?, 'name' => 'A Name')).to be(false)
+      expect(contact_form.send(:name_blank?, 'required' => true)).to be(true)
     end
 
     it 'rejects nested web form fields with blank names' do

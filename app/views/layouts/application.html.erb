@@ -3,7 +3,7 @@
   <head>
     <title>Reformation</title>
     <%= csrf_meta_tags %>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -14,23 +14,20 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="col-md-6">
-                    <h1><a href="<%= root_path %>"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Reformation</a></h1>
+                  <h1>
+                    <a href="<%= root_path %>">
+                      <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> 
+                      Reformation
+                    </a>
+                  </h1>
                 </div>
                 <div class="col-md-6">
                     <div class="btn-group btn-group-justified" role="group">
-                    <%- if logged_in? %>
-                        <%- if current_user.admin? %>
-                            <div class="btn-group" role="group">
-                            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-user")+" All Users", users_path, class: "btn btn-default navbar-btn" %>
-                            </div>
-                        <%- end %>
-                        <div class="btn-group" role="group">
-                        <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-user")+" "+current_user.name, current_user, class: "btn btn-default navbar-btn" %>
-                        </div>
-                        <div class="btn-group" role="group">
-                        <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-log-out")+" Sign Out", logout_path, method: :delete, class: "btn btn-default navbar-btn" %>
-                        </div>
-                    <%- end %>
+                    <% if logged_in? %>
+                      <%= btn_group_btn('All Users', 'user', users_path, 'navbar-btn') if current_user.admin? %>
+                      <%= btn_group_btn(current_user.name, 'user', current_user, 'navbar-btn') %>
+                      <%= btn_group_btn('Sign Out', 'log-out', logout_path, 'navbar-btn', { method: :delete }) %>
+                    <% end %>
                     </div>
                 </div>
             </div>
@@ -38,17 +35,13 @@
     </header>
     <div class="container main-container">
         <div class="row">
-            <% if flash[:notice] %>
-            <div class="alert alert-info"><%= flash[:notice] %></div>
-            <% end %>
-            <% if flash[:danger] %>
-            <div class="alert alert-warning"><%= flash[:danger] %></div>
-            <% end %>
+            <%= tag.div(flash[:notice], class: 'alert alert-info') if flash[:notice] %>
+            <%= tag.div(flash[:danger], class: 'alert alert-warning') if flash[:danger] %>
         </div>
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="<%= @col_class ? @col_class : "col-md-8 col-md-offset-2" %>">
+                    <div class="<%= panel_body_class(controller.action_name) %>">
                         <%= yield %>
                     </div>
                 </div>

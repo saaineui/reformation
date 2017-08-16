@@ -64,7 +64,7 @@ RSpec.describe 'Login and logout', type: :request do
       expect(logged_in?).to be(false)
       
       assert_select '.container.main-container' do
-        assert_select 'a[href="/signup"]', 'Signup'
+        assert_select 'a[href="/signup"]', 'Sign Up'
         assert_select 'a[href="/login"]', 'Login'
       end
     end

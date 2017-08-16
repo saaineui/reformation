@@ -1,32 +1,4 @@
 <div class="page-header">
-    <h2>Edit Profile</h2>
+    <h2><%= glyphicon_span('edit') %> Edit Profile</h2>
 </div>
-<%= form_for(@user) do |f| %>
-<% if @user.errors.any? %>
-    <% @user.errors.full_messages.each do |msg| %>
-        <div class="alert alert-warning"><%= msg %></div>
-    <% end %>
-<% end %>
-
-    <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-        <%= f.label :password_confirmation, "Password Confirmation" %>
-        <%= f.password_field :password_confirmation, class: "form-control" %>
-    </div>
-
-    <%= f.submit "Update", class: "btn btn-default" %>
-<% end %>
+<%= render partial: 'users/form', locals: { submit_btn_text: 'Update Profile', cancel_dest: user_path(current_user) } %>

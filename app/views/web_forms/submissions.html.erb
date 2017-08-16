@@ -1,27 +1,38 @@
-<div class="page-header" style="text-align: right">
-        <h2><%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-tasks")+" "+@web_form.name, @web_form) %></h2>
-        <h3><span class="glyphicon glyphicon-inbox"></span> Submissions (<%= @web_form.submissions.count %>)</h3>
+<div class="page-header">
+    <h2><%= link_to(glyphicon_span('tasks') + ' ' + @web_form.name, @web_form) %></h2>
+    <h3><%= glyphicon_span('inbox') %> Submissions (<%= @web_form.submissions.count %>)</h3>
 </div>
 <table class="table">
     <thead>
         <tr>
-            <%- @web_form.web_form_fields.each do |field| %>
-            <th><%= field.name %></th>
-            <%- end %>
+            <% @web_form.web_form_fields.each do |field| %>
+              <th>
+                <%= field.name %>
+              </th>
+            <% end %>
             <th>Source</th>
             <th>Date</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <%- @web_form.submissions.order("created_at DESC").each do |submission| %>
-        <tr>
-            <%- @web_form.web_form_fields.each do |field| %>
-            <td><%= SubmissionsEntry.where(web_form_field_id: field.id, submission_id: submission.id).count > 0 ? SubmissionsEntry.where(web_form_field_id: field.id, submission_id: submission.id).first.value : "-" %></td>
-            <%- end %>
-            <td><%= submission.source %></td>
-            <td><%= submission.created_at.strftime("%b %d, %Y (%a)") %></td>
-            <td><%= link_to("Delete", submission, method: :delete, data: { confirm: "Are you sure you want to delete this submission?" }) %></td>
-        </tr>
-        <%- end %>
+        <% @web_form.submissions.order("created_at DESC").each do |submission| %>
+          <tr>
+              <% @web_form.web_form_fields.each do |field| %>
+                <td>
+                  <%= submission.value_for_field(field) %>
+                </td>
+              <% end %>
+              <td><%= submission.source %></td>
+              <td><%= submission.created_at.strftime("%b %d, %Y (%a)") %></td>
+              <td><%= delete_with_confirm(submission) %></td>
+          </tr>
+        <% end %>
     </tbody>
 </table>
+<div class="btn-group btn-group-justified" role="group">
+  <%= btn_group_btn('Delete Form', 'remove', web_form_path(@web_form), '', { method: :delete, data: { confirm: "Are you sure you want to delete #{@web_form.name}?" } }) %>
+  <%= btn_group_btn('Edit Form', 'edit', edit_web_form_path(@web_form)) %>
+  <%= btn_group_btn('Embed Code', 'console', form_embed_path(@web_form)) %>
+  <%= btn_group_btn('Form Summary', 'tasks', web_form_path(@web_form)) %>
+</div>

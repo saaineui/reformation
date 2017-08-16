@@ -1,16 +1,19 @@
-<h2>Login to Reformation</h2>
+<h2><%= glyphicon_span('log-in') %> Login to Reformation</h2>
 <%= form_for(:session, url: login_path) do |f| %>
-
     <div class="form-group">
         <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control" %>
+        <%= f.email_field :email, class: 'form-control' %>
     </div>
 
     <div class="form-group">
         <%= f.label :password %>
-        <%= f.password_field :password, class: "form-control" %>
+        <%= f.password_field :password, class: 'form-control' %>
     </div>
 
-    <%= f.submit "Login", class: "btn btn-default" %>
-
+    <div class="btn-group btn-group-justified" role="group">
+       <%= btn_group_btn('Cancel', 'remove', root_path) %>
+       <div class="btn-group" role="group">
+          <%= f.submit 'Login', class: 'btn btn-reformation' %>
+       </div>
+    </div>
 <% end %>

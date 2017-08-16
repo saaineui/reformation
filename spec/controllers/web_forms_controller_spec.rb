@@ -42,7 +42,7 @@ RSpec.describe WebFormsController, type: :controller do
         it 'creates form and redirects to form show page' do
           sign_in(user)
           post :create, params: create_params
-          web_form = WebForm.find_by_name(new_form_name)
+          web_form = WebForm.find_by(name: new_form_name)
           expect(response).to redirect_to(web_form_path(web_form))
         end
       end
@@ -117,11 +117,11 @@ RSpec.describe WebFormsController, type: :controller do
       { 
         id: hire_form.id, 
         web_form: { 
-            name: new_form_name, 
-            web_form_fields_attributes: {
-              '0' => { name: new_form_name, required: '1', _destroy: '0', id: name_field.id },  
-              '1' => { name: email_field.name, required: '1', _destroy: '1', id: email_field.id }
-            } 
+          name: new_form_name, 
+          web_form_fields_attributes: {
+            '0' => { name: new_form_name, required: '1', _destroy: '0', id: name_field.id },  
+            '1' => { name: email_field.name, required: '1', _destroy: '1', id: email_field.id }
+          } 
         } 
       } 
     end

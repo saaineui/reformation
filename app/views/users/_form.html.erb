@@ -1,0 +1,30 @@
+<%= form_for(@user) do |f| %>
+    <%= render partial: 'shared/errors', locals: { resource: @user } %>
+
+    <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :password_confirmation, 'Password Confirmation' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+
+    <div class="btn-group btn-group-justified" role="group">
+       <%= btn_group_btn('Cancel', 'remove', cancel_dest) %>
+       <div class="btn-group" role="group">
+          <%= f.submit submit_btn_text, class: 'btn btn-reformation' %>
+       </div>
+    </div>
+<% end %>

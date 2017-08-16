@@ -1,13 +1,6 @@
 <div class="page-header">
-    <h2><span class="glyphicon glyphicon-tasks"></span> <%= @web_form.name %></h2>
-    <div class="btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-            <%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-inbox")+" Submissions (#{@web_form.submissions.count})", submissions_path(@web_form), class: "btn btn-info") %>
-        </div>
-        <div class="btn-group" role="group">
-            <%= link_to(content_tag(:span, "", class: "glyphicon glyphicon-console")+" Embed Code", form_embed_path(@web_form), class: "btn btn-default") %>
-        </div>
-    </div>
+    <h2><%= glyphicon_span('tasks') %> <%= @web_form.name %></h2>
+    <h3>Form Summary</h3>
 </div>
 <table class="table">
     <thead>
@@ -27,11 +20,9 @@
         <%- end %>
     </tbody>
 </table>
-    <div class="btn-group btn-group-justified" role="group">
-        <div class="btn-group" role="group">
-            <%= link_to "Edit", edit_web_form_path(@web_form), class: "btn btn-default" %>
-        </div>
-        <div class="btn-group" role="group">
-            <%= link_to "Delete", web_form_path(@web_form), method: :delete, data: { confirm: "Are you sure you want to delete #{@web_form.name}?" }, class: "btn btn-warning" %>
-        </div>
-    </div>
+<div class="btn-group btn-group-justified" role="group">
+  <%= btn_group_btn('Delete Form', 'remove', web_form_path(@web_form), '', { method: :delete, data: { confirm: "Are you sure you want to delete #{@web_form.name}?" } }) %>
+  <%= btn_group_btn('Edit Form', 'edit', edit_web_form_path(@web_form)) %>
+  <%= btn_group_btn('Embed Code', 'console', form_embed_path(@web_form)) %>
+  <%= btn_group_btn("Submissions (#{@web_form.submissions.count})", 'inbox', submissions_path(@web_form), 'btn-reformation') %>
+</div>

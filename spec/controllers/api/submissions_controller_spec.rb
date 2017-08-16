@@ -70,7 +70,7 @@ RSpec.describe Api::SubmissionsController, type: :controller do
         expect(JSON.parse(response.body)).to eq(success_json)
         expect(Submission.where(source: 'http://valid.io').count).to eq(1)
         
-        submission = Submission.find_by_source('http://valid.io')
+        submission = Submission.find_by(source: 'http://valid.io')
         expect(submission.submissions_entries.count).to eq(2)
         expect(submission.submissions_entries.order(:value).map(&:value)).to eq(['Jerry James', 'jj@j.com'])
       end
@@ -109,7 +109,7 @@ RSpec.describe Api::SubmissionsController, type: :controller do
         expect(JSON.parse(response.body)).to eq(success_json)
         expect(Submission.where(source: 'http://spare.io').count).to eq(1)
         
-        submission = Submission.find_by_source('http://spare.io')
+        submission = Submission.find_by(source: 'http://spare.io')
         expect(submission.submissions_entries.count).to eq(2)
         expect(submission.submissions_entries.order(:value).map(&:value)).to eq(['', 'noname@gmail.com'])
       end
@@ -132,7 +132,7 @@ RSpec.describe Api::SubmissionsController, type: :controller do
         expect(JSON.parse(response.body)).to eq(success_json)
         expect(Submission.where(source: 'http://excess.io').count).to eq(1)
         
-        submission = Submission.find_by_source('http://excess.io')
+        submission = Submission.find_by(source: 'http://excess.io')
         expect(submission.submissions_entries.count).to eq(2)
         expect(submission.submissions_entries.order(:value).map(&:value)).to eq(['Lane Kim', 'lane@lukesdiner.com'])
       end

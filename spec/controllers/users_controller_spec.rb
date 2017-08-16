@@ -59,7 +59,7 @@ RSpec.describe UsersController, type: :controller do
       context 'with valid data' do
         it 'creates user and redirects to profile' do
           post :create, params: create_params
-          new_user = User.find_by_name(new_user_name)
+          new_user = User.find_by(name: new_user_name)
           expect(response).to redirect_to(token_check_path(new_user, nickname: new_user.nickname))
         end
       end

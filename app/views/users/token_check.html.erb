@@ -1,26 +1,29 @@
-<p>You&rsquo;re almost signed up - just one more thing. Please obtain your token from the app owner and confirm it below:</p>
+<div class="page-header">
+    <h2><%= glyphicon_span('check') %> Token Check</h2>
+</div>
+<p>
+  You&rsquo;re almost signed up - just one more thing. Please obtain your token from the app owner and confirm it below:
+</p>
 <%= form_for(:session, url: login_path) do |f| %>
-<% if @user.errors.any? %>
-    <% @user.errors.full_messages.each do |msg| %>
-        <div class="alert alert-warning"><%= msg %></div>
-    <% end %>
-<% end %>
+    <%= render partial: 'shared/errors', locals: { resource: @user } %>
     
     <div class="form-group">
         <%= f.label :email %>
-        <%= f.text_field :email, value: @user.email, class: "form-control" %>
+        <%= f.text_field :email, value: @user.email, class: 'form-control' %>
     </div>
 
     <div class="form-group">
         <%= f.label :password %>
-        <%= f.password_field :password, class: "form-control" %>
+        <%= f.password_field :password, class: 'form-control' %>
     </div>
 
     <div class="form-group">
         <%= f.label :token_confirmation %>
-        <%= f.text_field :token_confirmation, class: "form-control" %>
+        <%= f.text_field :token_confirmation, class: 'form-control' %>
     </div>
 
-    <%= f.submit "Confirm", class: "btn btn-default" %>
+    <%= f.submit 'Confirm', class: 'btn btn-default' %>
 <% end %>
-<p style="margin-top: 1em;">Bookmark this page, or login from the homepage with your account email and password, to return to this step at any time.</p>
+<p style="margin-top: 1em;">
+  Bookmark this page, or login from the homepage with your account email and password, to return to this step at any time.
+</p>
