@@ -11,14 +11,15 @@ Rails.application.routes.draw do
   resources :users
   get 'users/:id/token_check/:nickname' => 'users#token_check', as: 'token_check'
 
-  resources :web_forms, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :submissions, only: [:destroy]
+  resources :web_forms, only: %i[new create show edit update destroy]
+  resources :submissions, only: %i[destroy]
     
   get 'web_forms/:id/submissions' => 'web_forms#submissions', as: 'submissions'
   get 'web_forms/:id/embed_code' => 'web_forms#embed_code', as: 'form_embed'
 
   namespace :api do
-    get "submit/:id" => "submissions#create"
+    post 'submissions/:web_form_id' => 'submissions#create', as: 'submissions'
+    get "submit/:id" => "old_submit#submit"
   end
     
 end

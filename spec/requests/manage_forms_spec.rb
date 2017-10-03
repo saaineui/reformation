@@ -63,7 +63,7 @@ RSpec.describe 'Manage web forms', type: :request do
       get form_embed_path(form)
       assert_select 'title', 'Reformation | embed code > To Hire'
       assert_select 'pre', "
-<form id='reformation-form' action='http://www.example.com/api/submit/#{form.id}'>
+<form id='reformation-form' action='http://www.example.com/api/submissions/#{form.id}' method='post'>
     <input type='hidden' name='token' value='G4JsokU2slUr7SkK93nVMg45' />
     <input type='hidden' name='source' value='YOUR-WEBSITE.com' />
 

@@ -3,7 +3,7 @@
     <h2><%= glyphicon_span('console') %> Embed Code</h2>
 </div>
 <pre>
-<%= "<form id='reformation-form' action='#{api_url(@web_form.id)}'>" %>
+<%= "<form id='reformation-form' action='#{api_submissions_url(@web_form.id)}' method='post'>" %>
     <%= "<input type='hidden' name='token' value='#{current_user.token}' />" %>
     <%= "<input type='hidden' name='source' value='YOUR-WEBSITE.com' />" %>
 

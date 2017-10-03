@@ -1,6 +1,5 @@
 module Api
-  class SubmissionsController < ApplicationController
-    protect_from_forgery except: :create
+  class OldSubmitController < ApplicationController
     skip_before_action :require_login
     skip_before_action :require_admin
     before_action :restrict_access
@@ -8,23 +7,23 @@ module Api
     respond_to? :json
     
     def initialize
-      @output = { status: 400, json: { notice: 'An unknown error occurred.' } }
+      @output = { code: 500, notice: 'An unknown error occurred.' }
     end
 
-    def create
+    def submit
       source = params[:source].to_s.strip
 
       if source.empty?
-        @output[:json][:notice] = 'Your form was missing a source.'
+        @output[:notice] = 'Your form was missing a source.'
       elsif missing_required.count > 0
-        @output[:json][:notice] = missing_required_message
+        @output[:notice] = missing_required_message
       else
         @submission = Submission.new(web_form: @web_form, source: source)
 
         add_entries_and_update_output if @submission.save
       end
       
-      render @output
+      render json: @output
     end
 
     private
@@ -48,7 +47,7 @@ module Api
     
     def add_entries_and_update_output
       create_submissions_entries
-      @output = { status: 201, json: { notice: 'Thanks for your message!' } }
+      @output = { code: 200, notice: 'Thanks for your message!' }
     end
     
     def create_submissions_entries
@@ -69,8 +68,8 @@ module Api
     end
     
     def find_form
-      return false unless WebForm.exists?(params[:web_form_id])
-      @web_form = WebForm.find(params[:web_form_id])
+      return false unless WebForm.exists?(params[:id])
+      @web_form = WebForm.find(params[:id])
       true
     end
     
