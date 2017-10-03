@@ -12,11 +12,9 @@ module Api
     end
 
     def create
-      source = params[:source].to_s.strip
-
       if source.empty?
         @output[:json][:notice] = 'Your form was missing a source.'
-      elsif missing_required.count > 0
+      elsif missing_required.count.positive?
         @output[:json][:notice] = missing_required_message
       else
         @submission = Submission.new(web_form: @web_form, source: source)
@@ -28,6 +26,10 @@ module Api
     end
 
     private
+    
+    def source
+      params[:source].to_s.strip
+    end
     
     def missing_required
       @web_form.web_form_fields.required.select { |field| missing?(field.id) }

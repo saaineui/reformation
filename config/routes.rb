@@ -19,7 +19,5 @@ Rails.application.routes.draw do
 
   namespace :api do
     post 'submissions/:web_form_id' => 'submissions#create', as: 'submissions'
-    get "submit/:id" => "old_submit#submit"
   end
-    
 end
