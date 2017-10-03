@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/thoughtbot/shoulda-matchers.git
-  revision: edaf9cb926ee9c59c59729e7a4f8c206b44da8a1
-  branch: rails-5
-  specs:
-    shoulda-matchers (3.1.2)
-      activesupport (>= 4.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -154,6 +146,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     simplecov (0.15.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -198,7 +192,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails (~> 3.5)
   sass-rails
-  shoulda-matchers!
+  shoulda-matchers (= 3.1.2)
   simplecov
   spring
   spring-watcher-listen
@@ -209,4 +203,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.13.7
+   1.15.4
