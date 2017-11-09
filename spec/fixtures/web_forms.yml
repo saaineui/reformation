@@ -1,7 +1,9 @@
 contact:
     name: Contact
     user: admin
+    submissions_count: 1
 
 to_hire:
     name: To Hire
     user: normal
+    submissions_count: 1    

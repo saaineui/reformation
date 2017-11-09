@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816220307) do
+ActiveRecord::Schema.define(version: 20171109044834) do
 
   create_table "submissions", force: :cascade do |t|
     t.string "source"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170816220307) do
   create_table "web_forms", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
+    t.integer "submissions_count"
     t.index ["user_id"], name: "index_web_forms_on_user_id"
   end
 

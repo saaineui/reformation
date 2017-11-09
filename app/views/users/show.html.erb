@@ -25,7 +25,7 @@
             <td>
                 <div class="btn-group-vertical web-form-list" role="group">
                   <% @user.web_forms.each do |form| %>
-                    <%= link_to(glyphicon_span('tasks') + ' ' + form.name, form, class: 'btn btn-highlight') %>
+			  <%= link_to("#{glyphicon_span('tasks')} #{form.name} (#{form.submissions_count})".html_safe, form, class: 'btn btn-highlight') %>
                   <% end %>
                 </div>
             </td>

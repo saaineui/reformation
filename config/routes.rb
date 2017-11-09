@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'web_forms/:id/embed_code' => 'web_forms#embed_code', as: 'form_embed'
 
   namespace :api do
-    post 'submissions/:web_form_id' => 'submissions#create', as: 'submissions'
+    resources :web_forms, only: []  do
+      resources :submissions, only: %i[create]
+    end
   end
 end

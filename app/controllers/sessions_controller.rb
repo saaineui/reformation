@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   def confirm_user
     if @user.token_confirmed?
       log_in @user
-      redirect_to @user
+      redirect_to root_url
     else
       flash[:notice] = "Welcome #{@user.name} (#{@user.email})."
       redirect_to token_check_path(@user, nickname: @user.nickname)

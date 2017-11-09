@@ -46,10 +46,8 @@ RSpec.describe 'Login and logout', type: :request do
       expect(logged_in?).to be(true)
       
       assert_select '.container.main-container' do
-        assert_select '.page-header', user.name
-        assert_select 'td', user.name
-        assert_select 'td', user.email
-        assert_select 'td', user.token
+        assert_select 'h3', "#{user.name} (#{user.email})"
+        assert_select '.home-forms-index'
       end
     end
   end
