@@ -10,7 +10,7 @@ RSpec.describe Submission, type: :model do
     expect(submission).to be_valid
   end
   
-  it { is_expected.to belong_to(:web_form) }
+  it { is_expected.to belong_to(:web_form).counter_cache(true) }
   it { is_expected.to have_one(:user) }
   it { is_expected.to have_many(:submissions_entries).dependent(:destroy) }
 

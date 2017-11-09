@@ -34,7 +34,7 @@ RSpec.describe SessionsController, type: :controller do
         context 'with valid data' do
           it 'logs in and redirects to profile' do
             post :create, params: { session: { email: confirmed_user.email, password: correct_password } }
-            expect(response).to redirect_to(user_path(confirmed_user))
+            expect(response).to redirect_to(root_path)
           end
         end
 

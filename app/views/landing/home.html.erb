@@ -16,7 +16,7 @@
         <td colspan=4>
           <div class="btn-group btn-group-justified" role="group">
             <%= btn_group_btn(form.name, 'tasks', web_form_path(form), 'btn-highlight') %>
-            <%= btn_group_btn("Submissions (#{form.submissions.count})", 'inbox', submissions_path(form), 'btn-reformation') %>
+            <%= btn_group_btn("Submissions (#{form.submissions_count})", 'inbox', submissions_path(form), 'btn-reformation') %>
             <%= btn_group_btn('Embed', 'console', form_embed_path(form)) %>
             <%= btn_group_btn('Edit', 'edit', edit_web_form_path(form)) %>
           </div>

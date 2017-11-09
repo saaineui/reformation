@@ -3,7 +3,7 @@
     <h2><%= glyphicon_span('console') %> Embed Code</h2>
 </div>
 <pre>
-<%= "<form id='reformation-form' action='#{api_submissions_url(@web_form.id)}' method='post'>" %>
+<%= "<form id='reformation-form' action='#{api_web_form_submissions_url(@web_form.id)}' method='post'>" %>
     <%= "<input type='hidden' name='token' value='#{current_user.token}' />" %>
     <%= "<input type='hidden' name='source' value='YOUR-WEBSITE.com' />" %>
 
@@ -18,5 +18,5 @@
   <%= btn_group_btn('Delete Form', 'remove', web_form_path(@web_form), '', { method: :delete, data: { confirm: "Are you sure you want to delete #{@web_form.name}?" } }) %>
   <%= btn_group_btn('Edit Form', 'edit', edit_web_form_path(@web_form)) %>
   <%= btn_group_btn('Form Summary', 'tasks', web_form_path(@web_form)) %>
-  <%= btn_group_btn("Submissions (#{@web_form.submissions.count})", 'inbox', submissions_path(@web_form), 'btn-reformation') %>
+  <%= btn_group_btn("Submissions (#{@web_form.submissions_count})", 'inbox', submissions_path(@web_form), 'btn-reformation') %>
 </div>
