@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <% if ['share'].include?(controller.action_name) %>
+    <% if ['share', 'amicus'].include?(controller.action_name) %>
       <%= yield %>
     <% else %>
     <header>

@@ -25,5 +25,5 @@ Rails.application.routes.draw do
   
   ## temp lee stuff
   get 'share' => 'landing#share'
-  get 'amicus' => 'landing#share'
+  get 'amicus' => 'landing#amicus'
 end
