@@ -1,0 +1,60 @@
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="col-md-6">
+              <h3>Virtual Guestbook: Eunice and Lady</h3>
+            </div>
+        </div>
+    </nav>            
+</header>
+<div class="container main-container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4>Fill out the form below to add your message and share memories:</h4>
+          
+          <form id='reformation-form' action='/api/web_forms/18/submissions' method='post'>
+            <input type='hidden' name='token' value='FLoJH8CGqy6hfUSSbndqwRXB' />
+            <input type='hidden' name='source' value='Reformation Share' />
+
+            <div class="form-group">
+              <label for="web_form_field_45">Your name</label>
+              <input type='text' name='web_form_field_45' placeholder='' class="form-control" id="web_form_field_45">
+            </div>
+
+            <div class="form-group">
+              <label for="web_form_field_46">Your email</label>
+              <input type="email" class="form-control" id="web_form_field_46" name='web_form_field_46' placeholder='your@email.com' required>
+            </div>
+
+            <div class="form-group">
+              <label for="web_form_field_47">Describe Eunice in 140 characters or less</label>
+              <textarea class="form-control" id="web_form_field_47" rows="3" name='web_form_field_47' placeholder='Eunice Lee bakes the best layer cakes in this hemisphere.' maxLength="140"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="web_form_field_48">Send a short message to Eunice and Lady</label>
+              <textarea class="form-control" id="web_form_field_48" rows="7" name='web_form_field_48' placeholder='Congratulations!!' maxLength="600"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="web_form_field_49">Image link</label>
+              <input type='text' name='web_form_field_49' placeholder='https://live.staticflickr.com/370/myimage.jpg' class="form-control" id="web_form_field_49" aria-describedby="imageHelp">
+              <small id="imageHelp" class="form-text text-muted">If you don't have a link to your image, please send it by replying to Steph Wu's email with the image attached.</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="web_form_field_50">Video link</label>
+              <input type='text' name='web_form_field_50' placeholder='https://live.staticflickr.com/370/video.mp4' class="form-control" id="web_form_field_50" aria-describedby="videoHelp">
+              <small id="videoHelp" class="form-text text-muted">If you don't have a link to your video, please send it by replying to Steph Wu's email with the video attached.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                  

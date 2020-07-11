@@ -22,4 +22,8 @@ Rails.application.routes.draw do
       resources :submissions, only: %i[create]
     end
   end
+  
+  ## temp lee stuff
+  get 'share' => 'landing#share'
+  get 'amicus' => 'landing#share'
 end

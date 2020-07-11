@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <% if ['share'].include?(controller.action_name) %>
+      <%= yield %>
+    <% else %>
     <header>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -50,5 +53,6 @@
         </div>
       </div>
     <%= javascript_include_tag 'application' %>
+  <% end %>
   </body>
 </html>
