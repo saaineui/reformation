@@ -4,6 +4,10 @@
     <title>Reformation | <%= page_title(controller) %></title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <% if ['share', 'amicus'].include?(controller.action_name) %>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <% end %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= favicon_link_tag 'reformation-favicon.png' %>
