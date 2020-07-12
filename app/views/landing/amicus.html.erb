@@ -1,4 +1,4 @@
-<div class="container main-container amicus-container">
+<div class="container amicus-container">
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -15,6 +15,7 @@
       
       <p>EUNICE LEE,</p>
       <p style="font-style: italic">Defendant–Appellant.</p>
+      <p>_________________________</p>
       
       <p>ON APPEAL FROM THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF I'M NOT CRYING, YOU'RE CRYING DIVISION</p>
       
@@ -47,9 +48,29 @@
         
         <hr>
         
-        <h3>II. Thank you for all the memories, and looking forward to more amazing times in Arizona!</h3>
+        <h3>II. Thank you for all the memories, and looking forward to more wonderful times in Arizona!</h3>
       </div>
-
+    </div>
+  </div>
+</div>
+        
+<div class="container messages-container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="panel panel-default">
+        <% @submissions.each do |submission| %>
+          <div class="panel-body">
+            <div class="media-container">
+              <img src="<%= submission[:image] %>">
+            </div>
+            <div class="message">
+              <%= submission[:message] %>
+            </div>
+            <small><%= submission[:name] %></small>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
