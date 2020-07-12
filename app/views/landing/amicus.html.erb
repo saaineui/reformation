@@ -61,11 +61,16 @@
       <% @submissions.each do |submission| %>
         <div class="panel panel-default">
           <div class="panel-body">
-            <div class="media-container">
-              <img src="<%= submission[:image] %>">
-            </div>
+            <% unless submission[:image].empty? %>
+              <div class="media-container">
+                <img src="<%= submission[:image] %>">
+              </div>
+            <% end %>
+
             <div class="message">
-              <%= submission[:message] %>
+              <% submission[:message].split(/\n/).each do |message_p| %>
+                <p><%= message_p %></p>
+              <% end %>
             </div>
             <small><%= submission[:name] %></small>
           </div>
