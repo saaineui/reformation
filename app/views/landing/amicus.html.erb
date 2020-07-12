@@ -33,18 +33,19 @@
       
       <div class="brief-body">
         <h2>SUMMARY OF ARGUMENT</h2>
-        <p>This case presents an important question about the extent of “something that can make you do wrong&mdash;make you do right. Yeah, hmmm. Love. Love and happiness.” <i>Green</i> (1972). While a case can be made that the Defendant, LEE, is “Smarter than the tricks played on your heart,” <i>Indigo Girls</i> (1994), how can the Plaintiff, IDOS, be sure that she will “Always want to be with you, and make believe with you, and live in harmony, harmony oh love?” <i>Erasure</i> (1994).</p>
+        <p>This case presents an important question about the extent of “something that can make you do wrong&mdash;make you do right. Yeah, hmmm. Love. Love and happiness.” <i>Green</i> (1972). While a case can be made that the Defendant, LEE, is “Smarter than the tricks played on your heart,” <i>Indigo Girls</i> (1994), how can the Plaintiff, IDOS, be sure that she is the one to “Always want to be with you, and make believe with you, and live in harmony, harmony oh love?” <i>Erasure</i> (1994).</p>
         
         <hr>
         
         <h2>ARGUMENT</h2>
         <h3>I. We love you Eunice &mdash; Lady is a lucky... lady!</h3>
+        <ol class="tweets">
           <% @submissions.each do |submission| %>
-            <p>
-              “<%= submission[:tweet] %>” 
-            </p>
-            <p class="friend"><i><%= submission[:name] %></i> (2020).</p>
+            <li>
+              “<%= submission[:tweet] %>” <i><%= submission[:name] %></i> (2020). 
+            </li>
           <% end %>
+        </ol>
         
         <hr>
         

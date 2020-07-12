@@ -13,7 +13,7 @@ class LandingController < ApplicationController
       
     amicus_form = WebForm.where(name: "amicus").first
     
-    @submissions = amicus_form.submissions.map.with_index do |submission, index| 
+    @submissions = amicus_form.submissions.sort_by(&:id).reverse.map.with_index do |submission, index| 
       {
         name: submission.value_for_field(
           WebFormField.where(web_form: amicus_form, name: 'Name') 
