@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <h1>No. 00-1999</h1>
+      <h1>No. 07-18-2020</h1>
       <hr><hr>
       
       <h2>UNITED STATES COURT OF APPEALS<br> FOR THE FOURTH CIRCUIT</h2>
@@ -10,21 +10,46 @@
       
       <p>LADY IDOS,</p>
       <p style="font-style: italic">Plaintiff–Appellee,</p>
+      
       <p>v.</p>
+      
       <p>EUNICE LEE</p>
       <p style="font-style: italic">Defendant–Appellant.</p>
       
-      <p>ON APPEAL FROM THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF MARYLAND, SOUTHERN DIVISION</p>
+      <p>ON APPEAL FROM THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF I'M NOT CRYING, YOU'RE CRYING DIVISION</p>
       
       <div style="border-top: 4px double #000; border-bottom: 4px double #000; margin: 3rem 0; padding: 1rem 0;">
         <p>BRIEF OF <span style="font-style: italic">AMICI CURIAE</span> ASSORTED FRIENDS AND FAMILY WHO HAVE BEEN WAITING FOR THIS DAY FOR A LONG TIME IN SUPPORT OF DEFENDANT-APPELLANT</p>
       </div>
       
       <div class="row" style="margin: 3rem 0">
-        <% @names.each do |name| %>
-          <div class="col-md-4 name-col"><%= name %></div>
+        <% @submissions.each do |submission| %>
+          <div class="col-md-4 name-col"><%= submission[:name] %></div>
         <% end %>
       </div>
+
+        <hr>
+      
+      <div class="brief-body">
+        <h2>SUMMARY OF ARGUMENT</h2>
+        <p>This case presents an important question about the extent of “something that can make you do wrong&mdash;make you do right. Yeah, hmmm. Love. Love and happiness.” <i>Green</i> (1972). While a case can be made that the Defendant, LEE, is “Smarter than the tricks played on your heart,” <i>Indigo Girls</i> (1994), how can the Plaintiff, IDOS, be sure that she will “Always want to be with you, and make believe with you, and live in harmony, harmony oh love?” <i>Erasure</i> (1994).</p>
+        
+        <hr>
+        
+        <h2>ARGUMENT</h2>
+        <h3>I. We love you Eunice &mdash; Lady is a lucky... lady!</h3>
+          <% @submissions.each do |submission| %>
+            <p>
+              “<%= submission[:tweet] %>” 
+            </p>
+            <p><i><%= submission[:name] %></i> (2020).</p>
+          <% end %>
+        
+        <hr>
+        
+        <h3>II. Thank you for all the memories, and looking forward to more amazing times in Arizona!</h3>
+      </div>
+
     </div>
   </div>
 </div>
