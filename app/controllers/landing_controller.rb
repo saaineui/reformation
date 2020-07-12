@@ -27,6 +27,9 @@ class LandingController < ApplicationController
         message: submission.value_for_field(
           WebFormField.where(web_form: amicus_form, name: 'Message') 
         ),
+        video: submission.value_for_field(
+          WebFormField.where(web_form: amicus_form, name: 'Video') 
+        ),
       }
     end
   end

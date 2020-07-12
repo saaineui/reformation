@@ -75,6 +75,16 @@
             </div>
             <small><%= submission[:name] %></small>
           </div>
+
+          <% unless submission[:video].empty? %>
+            <div class="panel-footer">
+              <div class="media-container">
+                <video controls preload="metadata">
+                  <source src="<%= submission[:video] %>" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
