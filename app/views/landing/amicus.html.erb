@@ -58,8 +58,8 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <div class="panel panel-default">
-        <% @submissions.each do |submission| %>
+      <% @submissions.each do |submission| %>
+        <div class="panel panel-default">
           <div class="panel-body">
             <div class="media-container">
               <img src="<%= submission[:image] %>">
@@ -69,8 +69,8 @@
             </div>
             <small><%= submission[:name] %></small>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
