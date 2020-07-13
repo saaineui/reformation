@@ -40,7 +40,7 @@
         <h2>ARGUMENT</h2>
         <h3>I. We love you Eunice!</h3>
         <ol class="tweets">
-          <% @submissions.reject{ |submission| submission[:eunice_tweet].eql?("-") }.each do |submission| %>
+          <% @submissions.reject{ |submission| submission[:eunice_tweet].empty? }.each do |submission| %>
               <li>
                 “<%= submission[:eunice_tweet] %>” <i><%= submission[:name] %></i> (2020). 
               </li>
@@ -51,7 +51,7 @@
         
         <h3>II. Lady rocks our world, let us count the ways...</h3>
         <ol class="tweets">
-          <% @submissions.reject{ |submission| submission[:lady_tweet].eql?("-") }.each do |submission| %>
+          <% @submissions.reject{ |submission| submission[:lady_tweet].empty? }.each do |submission| %>
               <li>
                 “<%= submission[:lady_tweet] %>” <i><%= submission[:name] %></i> (2020). 
               </li>
