@@ -18,8 +18,11 @@ class LandingController < ApplicationController
         name: submission.value_for_field(
           WebFormField.where(web_form: amicus_form, name: 'Name') 
         ),
-        tweet: submission.value_for_field(
+        eunice_tweet: submission.value_for_field(
           WebFormField.where(web_form: amicus_form, name: 'Tweet') 
+        ),
+        lady_tweet: submission.value_for_field(
+          WebFormField.where(web_form: amicus_form, name: 'Tweet-2') 
         ),
         image: submission.value_for_field(
           WebFormField.where(web_form: amicus_form, name: 'Image') 
