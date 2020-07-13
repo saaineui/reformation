@@ -7,8 +7,8 @@ class LandingController < ApplicationController
   def share; end
 
   def amicus
-    if WebForm.where(name: "amicus").count == 0 
-      return
+    if amicus_form_missing || invalid_password
+      redirect_to root_url
     end
       
     amicus_form = WebForm.where(name: "amicus").first
@@ -33,4 +33,14 @@ class LandingController < ApplicationController
       }
     end
   end
+end
+
+private
+
+def amicus_form_missing
+  WebForm.where(name: "amicus").count == 0
+end
+
+def invalid_password
+  Rails.application.secrets.password == params[:password]
 end
