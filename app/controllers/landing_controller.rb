@@ -42,5 +42,5 @@ def amicus_form_missing
 end
 
 def invalid_password
-  Rails.application.secrets.password == params[:password]
+  Rails.application.secrets.amicus_password != params[:password]
 end
