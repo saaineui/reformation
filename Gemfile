@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '5.1.2'
-gem 'puma', '3.9.1'
+gem 'puma', '4.3.11'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
