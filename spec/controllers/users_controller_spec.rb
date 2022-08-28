@@ -13,7 +13,7 @@ RSpec.describe UsersController, type: :controller do
       it 'responds successfully with index template' do
         sign_in(admin_user)
         get :index
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('index')
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when logged out' do
       it 'responds successfully with new template' do
         get :new
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('new')
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe UsersController, type: :controller do
       context 'with incomplete data' do
         it 'renders new template with errors' do
           post :create, params: { user: { name: new_user_name, email: new_user_email, password: '' } }
-          expect(response).to be_success
+          expect(response.status).to eq(200) 
           expect(response).to render_template('new')
         end
       end
@@ -95,7 +95,7 @@ RSpec.describe UsersController, type: :controller do
       context 'and valid nickname is provided' do
         it 'responds successfully with token_check template' do
           get :token_check, params: { id: user.id, nickname: user.nickname }
-          expect(response).to be_success 
+          expect(response.status).to eq(200) 
           expect(response).to render_template('token_check')
         end
       end
@@ -131,7 +131,7 @@ RSpec.describe UsersController, type: :controller do
       it 'responds successfully with show template' do
         sign_in(user)
         get :show, params: { id: user.id }
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('show')
       end
 
@@ -157,7 +157,7 @@ RSpec.describe UsersController, type: :controller do
       it 'responds successfully with edit template' do
         sign_in(user)
         get :edit, params: { id: user.id }
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('edit')
       end
 
@@ -200,7 +200,7 @@ RSpec.describe UsersController, type: :controller do
         it 'renders edit template with errors' do
           sign_in(user)
           patch :update, params: { id: user.id, user: { name: user.name, email: 'asdflkjssdf' } }
-          expect(response).to be_success
+          expect(response.status).to eq(200) 
           expect(response).to render_template('edit')
 
           user.reload

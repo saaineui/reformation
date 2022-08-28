@@ -1,4 +1,4 @@
-ruby '2.6.6'
+ruby '3.1.2'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -6,19 +6,19 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '5.1.2'
-gem 'puma', '3.9.1'
+gem 'rails', '7.0.3'
+gem 'puma', '5.6.5'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'jbuilder' # JSON APIs 
-gem 'bcrypt', '~> 3.1.11'
+gem 'bcrypt', '~> 3.1.18'
 
 group :development, :test do
   gem 'sqlite3'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 5.1.2'
 end
 
 group :development do
@@ -29,10 +29,10 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers', '3.1.2'
+  gem 'shoulda-matchers', '5.1.0'
   gem 'simplecov', require: false
 end
 
 group :production do
-  gem 'pg', '0.21.0'
+  gem 'pg', '1.4.3'
 end

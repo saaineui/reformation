@@ -66,7 +66,7 @@ RSpec.describe Api::SubmissionsController, type: :controller do
     context 'with valid data' do
       it 'creates submission and renders json confirmation' do
         post :create, params: valid_submission
-        expect(response).to be_success
+        expect(response.status).to eq(201) 
         expect(JSON.parse(response.body)).to eq(success_json)
         expect(Submission.where(source: 'http://valid.io').count).to eq(1)
         
@@ -105,7 +105,7 @@ RSpec.describe Api::SubmissionsController, type: :controller do
     context 'with only required fields completed' do
       it 'creates submission and renders json confirmation' do
         post :create, params: spare_submission
-        expect(response).to be_success
+        expect(response.status).to eq(201) 
         expect(JSON.parse(response.body)).to eq(success_json)
         expect(Submission.where(source: 'http://spare.io').count).to eq(1)
         
@@ -128,7 +128,7 @@ RSpec.describe Api::SubmissionsController, type: :controller do
     context 'with extra fields completed' do
       it 'creates submission and renders json confirmation' do
         post :create, params: excess_submission
-        expect(response).to be_success
+        expect(response.status).to eq(201) 
         expect(JSON.parse(response.body)).to eq(success_json)
         expect(Submission.where(source: 'http://excess.io').count).to eq(1)
         

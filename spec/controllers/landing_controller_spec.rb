@@ -10,7 +10,7 @@ RSpec.describe LandingController, type: :controller do
       it 'responds successfully with home template' do
         sign_in(admin_user)
         get :home
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('home')
       end
     end
@@ -19,7 +19,7 @@ RSpec.describe LandingController, type: :controller do
       it 'responds successfully with home template' do
         sign_in(user)
         get :home
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('home')
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe LandingController, type: :controller do
     context 'when logged out' do
       it 'responds successfully with home template' do
         get :home
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('home')
       end
     end

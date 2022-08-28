@@ -21,7 +21,7 @@ RSpec.describe WebFormsController, type: :controller do
       it 'responds successfully' do
         sign_in(user)
         get :new
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('new')
       end
     end
@@ -51,7 +51,7 @@ RSpec.describe WebFormsController, type: :controller do
         it 'renders new again with errors' do
           sign_in(user)
           post :create, params: { web_form: { name: '', user_id: user.id } }
-          expect(response).to be_success
+          expect(response.status).to eq(200)
           expect(response).to render_template('new')
         end
       end
@@ -70,7 +70,7 @@ RSpec.describe WebFormsController, type: :controller do
       it 'responds successfully with show template' do
         sign_in(user)
         get :show, params: { id: hire_form.id }
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('show')
       end
 
@@ -96,7 +96,7 @@ RSpec.describe WebFormsController, type: :controller do
       it 'responds successfully with edit template' do
         sign_in(user)
         get :edit, params: { id: hire_form.id }
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('edit')
       end
 
@@ -224,7 +224,7 @@ RSpec.describe WebFormsController, type: :controller do
       it 'responds successfully with show template' do
         sign_in(user)
         get :submissions, params: { id: hire_form.id }
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('submissions')
       end
 
@@ -250,7 +250,7 @@ RSpec.describe WebFormsController, type: :controller do
       it 'responds successfully with show template' do
         sign_in(user)
         get :embed_code, params: { id: hire_form.id }
-        expect(response).to be_success
+        expect(response.status).to eq(200) 
         expect(response).to render_template('embed_code')
       end
 

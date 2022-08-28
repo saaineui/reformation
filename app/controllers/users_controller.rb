@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       redirect_to @user
       flash[:notice] = 'Your changes have been saved.'
     else
