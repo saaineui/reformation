@@ -26,7 +26,7 @@ class WebFormsController < ApplicationController
   end
 
   def update
-    if @web_form.update_attributes(web_form_params)
+    if @web_form.update(web_form_params)
       redirect_to @web_form
       flash[:notice] = 'Your changes have been saved.'
     else
