@@ -14,7 +14,7 @@ RSpec.describe SessionsController, type: :controller do
     context 'when logged out' do
       it 'responds successfully with new template' do
         get :new
-        expect(response).to be_success
+        expect(response.status).to eq(200)
         expect(response).to render_template('new')
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe SessionsController, type: :controller do
         context 'with invalid data' do
           it 'renders new template with errors' do
             post :create, params: { session: { email: confirmed_user.email, password: incorrect_password } }
-            expect(response).to be_success
+            expect(response.status).to eq(200) 
             expect(response).to render_template('new')
           end
         end
