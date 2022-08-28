@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '7.0.0'
+gem 'rails', '7.0.3'
 gem 'puma', '5.6.5'
 gem 'sass-rails'
 gem 'uglifier'
@@ -29,7 +29,7 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers', '3.1.2'
+  gem 'shoulda-matchers', '5.1.0'
   gem 'simplecov', require: false
 end
 
