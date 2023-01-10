@@ -14,9 +14,9 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'jbuilder' # JSON APIs 
 gem 'bcrypt', '~> 3.1.18'
+gem 'pg', '1.4.3'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.1.2'
 end
@@ -31,8 +31,4 @@ end
 group :test do
   gem 'shoulda-matchers', '5.1.0'
   gem 'simplecov', require: false
-end
-
-group :production do
-  gem 'pg', '1.4.3'
 end

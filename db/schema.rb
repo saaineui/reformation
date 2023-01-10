@@ -11,7 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_08_28_073438) do
-  create_table "submissions", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "submissions", id: :serial, force: :cascade do |t|
     t.string "source"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -19,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_073438) do
     t.index ["web_form_id"], name: "index_submissions_on_web_form_id"
   end
 
-  create_table "submissions_entries", force: :cascade do |t|
+  create_table "submissions_entries", id: :serial, force: :cascade do |t|
     t.integer "web_form_field_id"
     t.integer "submission_id"
     t.string "value"
@@ -27,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_073438) do
     t.index ["web_form_field_id"], name: "index_submissions_entries_on_web_form_field_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
@@ -39,14 +42,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_073438) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "web_form_fields", force: :cascade do |t|
+  create_table "web_form_fields", id: :serial, force: :cascade do |t|
     t.integer "web_form_id"
     t.string "name"
     t.boolean "required", default: false
     t.index ["web_form_id"], name: "index_web_form_fields_on_web_form_id"
   end
 
-  create_table "web_forms", force: :cascade do |t|
+  create_table "web_forms", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
     t.integer "submissions_count"

@@ -1,18 +1,21 @@
 default: &default
   pool: 5
   timeout: 5000
+  adapter: postgresql
+  encoding: unicode
 
 development:
   <<: *default
-  adapter: sqlite3
-  database: db/development.sqlite3
+  database: reformation_dev
+  user: rails
+  password: rubyskye
 
 test:
   <<: *default
-  adapter: sqlite3
-  database: db/test.sqlite3
+  database: reformation_test
+  user: rails
+  password: rubyskye
 
 production:
   <<: *default
-  adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
