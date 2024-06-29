@@ -1,7 +1,5 @@
 # Reformation
 
-[![View on Travis](https://travis-ci.org/saaineui/reformation.svg?branch=master)](https://travis-ci.org/saaineui/reformation)
-
 This is a simple web forms solution that I created as an alternative to Google Forms for my website.
 
 ## Dependencies
